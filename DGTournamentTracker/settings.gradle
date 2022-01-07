@@ -1,0 +1,2 @@
+rootProject.name = 'DGTournamentTracker'
+includeFlat 'JPATournaments'
