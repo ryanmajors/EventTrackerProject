@@ -2,9 +2,15 @@
 
 ## Overview
 
+#### How to Return
+
 ### REST API
 
+Go to http://3.131.230.226/:8083/DGTournamentTracker/api/tournaments
+
 ### HTML/JavaScript Front End
+
+Go to http://3.131.230.226/:8083/DGTournamentTracker/index.html
 
 ### Angular Front End
 
