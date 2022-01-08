@@ -6,4 +6,5 @@ import com.skilldistillery.dgtournament.entities.Tournament;
 
 public interface TournamentRepository extends JpaRepository<Tournament, Integer> {
 
+	Tournament findById(int tournamentId);
 }

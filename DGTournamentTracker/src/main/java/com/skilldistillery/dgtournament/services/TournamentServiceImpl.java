@@ -1,6 +1,7 @@
 package com.skilldistillery.dgtournament.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,8 @@ public class TournamentServiceImpl implements TournamentService {
 	
 	@Autowired
 	private TournamentRepository tournamentRepo;
+	
+	
 
 	@Override
 	public List<Tournament> getAllTournaments() {
@@ -21,7 +24,24 @@ public class TournamentServiceImpl implements TournamentService {
 
 	@Override
 	public Tournament getTournamentById(int tournamentId) {
+		return tournamentRepo.findById(tournamentId);
+	}
+
+	@Override
+	public Tournament addTournament(Tournament tournament) {
+		return tournamentRepo.save(tournament);
+	}
+
+	@Override
+	public Tournament updateTournament(Tournament tournament) {
+		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public boolean deleteTournament(Tournament tournament) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

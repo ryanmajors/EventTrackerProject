@@ -7,6 +7,15 @@ import com.skilldistillery.dgtournament.entities.Tournament;
 public interface TournamentService {
 	
 	List<Tournament> getAllTournaments();
+	
 	Tournament getTournamentById(int tournamentId);
+	
+	Tournament addTournament(Tournament tournament);
+	
+	Tournament updateTournament(Tournament tournament);
+	
+	boolean deleteTournament(Tournament tournament);
+	
+	
 
 }
