@@ -12,9 +12,11 @@ public interface TournamentService {
 	
 	Tournament addTournament(Tournament tournament);
 	
-	Tournament updateTournament(Tournament tournament);
+	Tournament updateTournamentById(Tournament tournament, int tournamentId);
 	
-	boolean deleteTournament(Tournament tournament);
+	Tournament hideTournamentById(Tournament tournament, int tournamentId);
+	
+	void deleteTournamentById(int tournamentId);
 	
 	
 

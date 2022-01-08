@@ -1,7 +1,6 @@
 package com.skilldistillery.dgtournament.services;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,15 +32,28 @@ public class TournamentServiceImpl implements TournamentService {
 	}
 
 	@Override
-	public Tournament updateTournament(Tournament tournament) {
-		// TODO Auto-generated method stub
+	public Tournament updateTournamentById(Tournament tournament, int tournamentId) {
+		tournament.setId(tournamentId);
+		if(tournamentRepo.existsById(tournamentId)) {
+			return tournamentRepo.save(tournament);
+		}
+		return null;
+	}
+	
+	@Override
+	public Tournament hideTournamentById(Tournament tournament, int tournamentId) {
+		tournament.setId(tournamentId);
+		if(tournamentRepo.existsById(tournamentId)) {
+			tournament.setHidden(true);
+			return tournamentRepo.save(tournament);
+		}
 		return null;
 	}
 
 	@Override
-	public boolean deleteTournament(Tournament tournament) {
-		// TODO Auto-generated method stub
-		return false;
+	public void deleteTournamentById(int tournamentId) {
+		tournamentRepo.deleteById(tournamentId);;
 	}
+
 
 }

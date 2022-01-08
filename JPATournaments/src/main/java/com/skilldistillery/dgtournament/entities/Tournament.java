@@ -37,12 +37,14 @@ public class Tournament {
 	private int placement;
 	
 	private int points;
+	
+	private boolean hidden;
 
 	public Tournament() {
 		super();
 	}
 
-	public Tournament(int id, String name, String tier, String location, Date tournamentDate, boolean multiDay) {
+	public Tournament(int id, String name, String tier, String location, Date tournamentDate, boolean multiDay, boolean hidden) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -50,6 +52,7 @@ public class Tournament {
 		this.location = location;
 		this.tournamentDate = tournamentDate;
 		this.multiDay = multiDay;
+		this.hidden = hidden;
 	}
 
 	public int getId() {
@@ -140,6 +143,14 @@ public class Tournament {
 		this.points = points;
 	}
 
+	public boolean isHidden() {
+		return hidden;
+	}
+
+	public void setHidden(boolean hidden) {
+		this.hidden = hidden;
+	}
+
 	@Override
 	public String toString() {
 		return "Tournament [id=" + id + ", name=" + name + ", tier=" + tier + ", location=" + location
@@ -147,5 +158,6 @@ public class Tournament {
 				+ players + ", entryFee=" + entryFee + ", placement=" + placement + ", points=" + points + "]";
 	}
 
+	
 	
 }

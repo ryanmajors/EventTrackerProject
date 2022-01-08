@@ -32,6 +32,7 @@ CREATE TABLE IF NOT EXISTS `tournament` (
   `entry_fee` DECIMAL(4,2) NULL,
   `placement` INT NULL,
   `points` INT NULL,
+  `hidden` TINYINT NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -51,7 +52,7 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `dgtournamentdb`;
-INSERT INTO `tournament` (`id`, `name`, `tier`, `location`, `tournament_date`, `multi_day`, `days`, `players`, `entry_fee`, `placement`, `points`) VALUES (1, 'Mile High Classic', 'B', 'Adam\'s Hollow Disc golf course', '2021-09-27', 1, 1, 18, 55.00, 1, 90);
+INSERT INTO `tournament` (`id`, `name`, `tier`, `location`, `tournament_date`, `multi_day`, `days`, `players`, `entry_fee`, `placement`, `points`, `hidden`) VALUES (1, 'Mile High Classic', 'B', 'Adam\'s Hollow Disc golf course', '2021-09-27', 1, 1, 18, 55.00, 1, 90, 0);
 
 COMMIT;
 
