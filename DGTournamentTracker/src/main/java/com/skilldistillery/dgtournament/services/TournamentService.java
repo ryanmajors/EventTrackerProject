@@ -14,7 +14,7 @@ public interface TournamentService {
 	
 	Tournament updateTournamentById(Tournament tournament, int tournamentId);
 	
-	Tournament hideTournamentById(Tournament tournament, int tournamentId);
+	Tournament toggleTournamentVisibilityById(int tournamentId);
 	
 	void deleteTournamentById(int tournamentId);
 	

@@ -44,9 +44,8 @@ public class Tournament {
 		super();
 	}
 
-	public Tournament(int id, String name, String tier, String location, Date tournamentDate, boolean multiDay, boolean hidden) {
+	public Tournament(String name, String tier, String location, Date tournamentDate, boolean multiDay, boolean hidden) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.tier = tier;
 		this.location = location;

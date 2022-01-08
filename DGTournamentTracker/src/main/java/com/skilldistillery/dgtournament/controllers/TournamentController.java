@@ -49,8 +49,8 @@ public class TournamentController {
 	}
 	
 	@PutMapping("tournaments/{tournamentId}/hide")
-	public Tournament hideTournament(@RequestBody Tournament tournament, @PathVariable int tournamentId) {
-		return tournamentService.hideTournamentById(tournament, tournamentId);
+	public Tournament hideTournament(@PathVariable int tournamentId) {
+		return tournamentService.toggleTournamentVisibilityById(tournamentId);
 	}
 	
 	@DeleteMapping("tournaments/{tournamentId}")

@@ -10,11 +10,9 @@ import com.skilldistillery.dgtournament.repositories.TournamentRepository;
 
 @Service
 public class TournamentServiceImpl implements TournamentService {
-	
+
 	@Autowired
 	private TournamentRepository tournamentRepo;
-	
-	
 
 	@Override
 	public List<Tournament> getAllTournaments() {
@@ -34,26 +32,28 @@ public class TournamentServiceImpl implements TournamentService {
 	@Override
 	public Tournament updateTournamentById(Tournament tournament, int tournamentId) {
 		tournament.setId(tournamentId);
-		if(tournamentRepo.existsById(tournamentId)) {
+		if (tournamentRepo.existsById(tournamentId)) {
 			return tournamentRepo.save(tournament);
 		}
 		return null;
 	}
-	
+
 	@Override
-	public Tournament hideTournamentById(Tournament tournament, int tournamentId) {
-		tournament.setId(tournamentId);
-		if(tournamentRepo.existsById(tournamentId)) {
+	public Tournament toggleTournamentVisibilityById(int tournamentId) {
+		Tournament tournament = tournamentRepo.findById(tournamentId);
+		if (tournament.isHidden() == false) {
 			tournament.setHidden(true);
-			return tournamentRepo.save(tournament);
+			return tournamentRepo.saveAndFlush(tournament);
+		} else {
+			tournament.setHidden(false);
+			return tournamentRepo.saveAndFlush(tournament);
 		}
-		return null;
 	}
 
 	@Override
 	public void deleteTournamentById(int tournamentId) {
-		tournamentRepo.deleteById(tournamentId);;
+		tournamentRepo.deleteById(tournamentId);
+		;
 	}
-
 
 }
