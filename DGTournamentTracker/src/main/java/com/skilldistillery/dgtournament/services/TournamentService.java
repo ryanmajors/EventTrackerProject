@@ -17,6 +17,24 @@ public interface TournamentService {
 	Tournament toggleTournamentVisibilityById(int tournamentId);
 	
 	void deleteTournamentById(int tournamentId);
+
+	// tournaments played
+	
+	// tournaments played by year
+	
+	// wins
+	
+	// win %
+
+	// average placement
+	
+	// podium finishes 
+	
+	// top 5 
+	
+	// top 10
+	
+	// 
 	
 	
 
