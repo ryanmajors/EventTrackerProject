@@ -67,7 +67,7 @@ public class TournamentServiceImpl implements TournamentService {
 
 	@Override
 	public int countTournamentsPlayedByYear(int tournamentYear) {
-		return getAllTournamentsPlayedByYear(tournamentYear).size();
+		return getAllTournamentsByYear(tournamentYear).size();
 	}
 
 	@Override
@@ -91,9 +91,9 @@ public class TournamentServiceImpl implements TournamentService {
 	}
 
 	@Override
-	public int countTotalPointsForAllTournaments() {
+	public double countTotalPointsForAllTournaments() {
 		List<Tournament> allTournament = tournamentRepo.findAll();
-		int totalPoints = 0;
+		double totalPoints = 0;
 		for (Tournament tournament : allTournament) {
 			totalPoints += tournament.getPoints();
 		}
@@ -101,9 +101,9 @@ public class TournamentServiceImpl implements TournamentService {
 	}
 
 	@Override
-	public int countTotalPointsPerYear(int year) {
+	public double countTotalPointsPerYear(int year) {
 		List<Tournament> tournamentsByYear = tournamentRepo.findByYear(year);
-		int totalPointsByYear = 0;
+		double totalPointsByYear = 0;
 		for (Tournament tournament : tournamentsByYear) {
 			totalPointsByYear += tournament.getPoints();
 		}

@@ -32,9 +32,9 @@ public interface TournamentService {
 
 	int countTop10Finishes();
 	
-	int countTotalPointsForAllTournaments();
+	double countTotalPointsForAllTournaments();
 	
-	int countTotalPointsPerYear(int year);
+	double countTotalPointsPerYear(int year);
 	
 	double calculateAveragePointsPerTournament();
 	

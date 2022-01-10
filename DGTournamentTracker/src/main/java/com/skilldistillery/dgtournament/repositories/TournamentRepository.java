@@ -46,8 +46,5 @@ public interface TournamentRepository extends JpaRepository<Tournament, Integer>
 	
 	// findByPointsGreaterThanEquals
 	List<Tournament> findByPointsGreaterThanEqual(int points);
-	//
-
-	
 	
 }
