@@ -39,7 +39,6 @@ Go to http://3.131.230.226/:8083/DGTournamentTracker/index.html
 | List \<Tournaments\> | GET         | /api/tournaments/filter/multiday/{multiDay} |                 | List     |
 | List \<Tournaments\> | GET         | /api/tournaments/filter/players/{players}   |                 | List     |
 | List \<Tournaments\> | GET         | /api/tournaments/filter/entryfee/{entryFee} |                 | List     |
-
 | List \<Tournaments\> | GET         | /api/tournaments/stats/wins                 |                 | List     |
 | List \<Tournaments\> | GET         | /api/tournaments/stats/podiumfinishes       |                 | List     |
 | List \<Tournaments\> | GET         | /api/tournaments/stats/top5finishes         |                 | List     |
