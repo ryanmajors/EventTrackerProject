@@ -13,11 +13,11 @@ More to come once the front end is built out.
 
 ### REST API
 
-Go to http://3.131.230.226/:8080/DGTournamentTracker/api/tournaments
+Go to http://3.131.230.226:8080/DGTournamentTracker/api/tournaments
 
 ### HTML/JavaScript Front End
 
-Go to http://3.131.230.226/:8080/DGTournamentTracker/index.html
+Go to http://3.131.230.226:8080/DGTournamentTracker/index.html
 
 ### Angular Front End
 
