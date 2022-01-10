@@ -87,26 +87,28 @@ public class TournamentController {
 	public List<Tournament> filterTournamentsByYear(@PathVariable int year) {
 		return tournamentService.getAllTournamentsByYear(year);
 	}
+	
+	//  Couldn't get these mappings to work. Still need to troubleshoot.
 
-	@GetMapping("tournaments/filter/multiday{multiDay}")
-	public List<Tournament> filterTournamentsByMultiDay(@PathVariable boolean multiDay) {
-		return tournamentService.getAllTournamentsByMultiDay(multiDay);
-	}
-
-	@GetMapping("tournaments/filter/players{players}")
-	public List<Tournament> filterTournamentsByPlayersGreaterThanEqual(@PathVariable int players) {
-		return tournamentService.getAllTournamentsByPlayersGreaterThanEqual(players);
-	}
-
-	@GetMapping("tournaments/filter/entryfee{entryFee}")
-	public List<Tournament> filterTournamentsByEntryFeeLessThanEqual(@PathVariable int entryFee) {
-		return tournamentService.getAllTournamentsByEntryFeeLessThanEqual(entryFee);
-	}
-
-	@GetMapping("tournaments/filter/points{points}")
-	public List<Tournament> filterTournamentsByPointsGreaterThanEqual(@PathVariable int points) {
-		return tournamentService.getAllTournamentsByPointsGreaterThanEqual(points);
-	}
+//	@GetMapping("tournaments/filter/multiday{multiDay}")
+//	public List<Tournament> filterTournamentsByMultiDay(@PathVariable boolean multiDay) {
+//		return tournamentService.getAllTournamentsByMultiDay(multiDay);
+//	}
+//
+//	@GetMapping("tournaments/filter/players{players}")
+//	public List<Tournament> filterTournamentsByPlayersGreaterThanEqual(@PathVariable int players) {
+//		return tournamentService.getAllTournamentsByPlayersGreaterThanEqual(players);
+//	}
+//
+//	@GetMapping("tournaments/filter/entryfee{entryFee}")
+//	public List<Tournament> filterTournamentsByEntryFeeLessThanEqual(@PathVariable int entryFee) {
+//		return tournamentService.getAllTournamentsByEntryFeeLessThanEqual(entryFee);
+//	}
+//
+//	@GetMapping("tournaments/filter/points{points}")
+//	public List<Tournament> filterTournamentsByPointsGreaterThanEqual(@PathVariable int points) {
+//		return tournamentService.getAllTournamentsByPointsGreaterThanEqual(points);
+//	}
 
 	@GetMapping("tournaments/stats/wins")
 	public List<Tournament> getTournamentWins() {
