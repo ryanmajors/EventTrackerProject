@@ -1,7 +1,5 @@
 package com.skilldistillery.dgtournament.services;
 
-import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +22,11 @@ public class TournamentServiceImpl implements TournamentService {
 	@Override
 	public Tournament getTournamentById(int tournamentId) {
 		return tournamentRepo.findById(tournamentId);
+	}
+
+	@Override
+	public Tournament getTournamentsByName(String name) {
+		return tournamentRepo.findByName(name);
 	}
 
 	@Override
@@ -55,7 +58,6 @@ public class TournamentServiceImpl implements TournamentService {
 	@Override
 	public void deleteTournamentById(int tournamentId) {
 		tournamentRepo.deleteById(tournamentId);
-		;
 	}
 
 	@Override
@@ -65,7 +67,7 @@ public class TournamentServiceImpl implements TournamentService {
 
 	@Override
 	public int countTournamentsPlayedByYear(int tournamentYear) {
-		return getTournamentsPlayedByYear(tournamentYear).size();
+		return getAllTournamentsPlayedByYear(tournamentYear).size();
 	}
 
 	@Override
@@ -89,14 +91,43 @@ public class TournamentServiceImpl implements TournamentService {
 	}
 
 	@Override
+	public int countTotalPointsForAllTournaments() {
+		List<Tournament> allTournament = tournamentRepo.findAll();
+		int totalPoints = 0;
+		for (Tournament tournament : allTournament) {
+			totalPoints += tournament.getPoints();
+		}
+		return totalPoints;
+	}
+
+	@Override
+	public int countTotalPointsPerYear(int year) {
+		List<Tournament> tournamentsByYear = tournamentRepo.findByYear(year);
+		int totalPointsByYear = 0;
+		for (Tournament tournament : tournamentsByYear) {
+			totalPointsByYear += tournament.getPoints();
+		}
+		return totalPointsByYear;
+	}
+
+	@Override
+	public double calculateAveragePointsPerTournament() {
+		return countTotalPointsForAllTournaments() / countTournamentsPlayed();
+	}
+
+	@Override
+	public double calculateAveragePointsPerYear(int year) {
+		return countTotalPointsPerYear(year) / countTournamentsPlayedByYear(year);
+	}
+
+	@Override
 	public double calculateAveragePlacement() {
 		List<Tournament> allTournaments = tournamentRepo.findAll();
 		int total = 0;
 		for (Tournament tournament : allTournaments) {
-			int tournamentPlacement = tournament.getPlacement();
-			total += tournamentPlacement;
+			total += tournament.getPlacement();
 		}
-		return total/countTournamentsPlayed();
+		return total / countTournamentsPlayed();
 	}
 
 	@Override
@@ -120,6 +151,52 @@ public class TournamentServiceImpl implements TournamentService {
 	}
 
 	@Override
+	public List<Tournament> getAllTournamentsByNameOrLocation(String keyword) {
+		String keywordSearch = "%" + keyword + "%";
+		return tournamentRepo.findByNameLikeOrLocationLike(keywordSearch, keywordSearch);
+	}
+
+	@Override
+	public List<Tournament> getAllTournamentsByLocation(String location) {
+		return tournamentRepo.findByLocation(location);
+	}
+
+	@Override
+	public List<Tournament> getAllTournamentsByTier(String tier) {
+		return tournamentRepo.findByTier(tier);
+	}
+
+	@Override
+	public List<Tournament> getAllTournamentsByMonth(int month) {
+		return tournamentRepo.findByMonth(month);
+	}
+
+	@Override
+	public List<Tournament> getAllTournamentsByYear(int tournamentYear) {
+		return tournamentRepo.findByYear(tournamentYear);
+	}
+
+	@Override
+	public List<Tournament> getAllTournamentsByMultiDay(boolean multiDay) {
+		return tournamentRepo.findByMultiDay(multiDay);
+	}
+
+	@Override
+	public List<Tournament> getAllTournamentsByPlayersGreaterThanEqual(int players) {
+		return tournamentRepo.findByPlayersGreaterThanEqual(players);
+	}
+
+	@Override
+	public List<Tournament> getAllTournamentsByEntryFeeLessThanEqual(double entryFee) {
+		return tournamentRepo.findByEntryFeeLessThanEqual(entryFee);
+	}
+	
+	@Override
+	public List<Tournament> getAllTournamentsByPointsGreaterThanEqual(int points) {
+		return tournamentRepo.findByPointsGreaterThanEqual(points);
+	}
+
+	@Override
 	public List<Tournament> getAllTournamentWins() {
 		return tournamentRepo.findByPlacementEquals(1);
 	}
@@ -137,18 +214,6 @@ public class TournamentServiceImpl implements TournamentService {
 	@Override
 	public List<Tournament> getTop10Finishes() {
 		return tournamentRepo.findByPlacementLessThanEqual(10);
-	}
-
-	@Override
-	public List<Tournament> getTournamentsPlayedByYear(int tournamentYear) {
-		List<Tournament> tournaments = tournamentRepo.findAll();
-		List<Tournament> tournamentsByYear = new ArrayList<>();
-		for (Tournament tournament : tournaments) {
-			if (tournament.getYear() == tournamentYear) {
-				tournamentsByYear.add(tournament);
-			}
-		}
-		return tournamentsByYear;
 	}
 
 }

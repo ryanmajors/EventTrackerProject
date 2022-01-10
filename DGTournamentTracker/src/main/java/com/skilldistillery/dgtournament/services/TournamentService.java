@@ -9,6 +9,8 @@ public interface TournamentService {
 	List<Tournament> getAllTournaments();
 	
 	Tournament getTournamentById(int tournamentId);
+
+	Tournament getTournamentsByName(String name);
 	
 	Tournament addTournament(Tournament tournament);
 	
@@ -30,6 +32,14 @@ public interface TournamentService {
 
 	int countTop10Finishes();
 	
+	int countTotalPointsForAllTournaments();
+	
+	int countTotalPointsPerYear(int year);
+	
+	double calculateAveragePointsPerTournament();
+	
+	double calculateAveragePointsPerYear(int year);
+	
 	double calculateAveragePlacement();
 	
 	double calculateWinPercentage();
@@ -40,7 +50,23 @@ public interface TournamentService {
 	
 	double calculateTop10Percentage();
 	
-	List<Tournament> getTournamentsPlayedByYear(int tournamentYear);
+	List<Tournament> getAllTournamentsByNameOrLocation(String keyword);
+	
+	List<Tournament> getAllTournamentsByLocation(String location);
+	
+	List<Tournament> getAllTournamentsByTier(String tier);
+	
+	List<Tournament> getAllTournamentsByMonth(int month);
+	
+	List<Tournament> getAllTournamentsByYear(int tournamentYear);
+	
+	List<Tournament> getAllTournamentsByMultiDay(boolean multiDay);
+	
+	List<Tournament> getAllTournamentsByPlayersGreaterThanEqual(int players);
+	
+	List<Tournament> getAllTournamentsByEntryFeeLessThanEqual(double entryFee);
+	
+	List<Tournament> getAllTournamentsByPointsGreaterThanEqual(int points);
 	
 	List<Tournament> getAllTournamentWins();
 	

@@ -34,6 +34,11 @@ public class TournamentController {
 		return tournamentService.getTournamentById(tournamentId);
 	}
 
+	@GetMapping("tournaments/name/{tournamentName}")
+	public Tournament getTournamentByName(@PathVariable String tournamentName) {
+		return tournamentService.getTournamentsByName(tournamentName);
+	}
+
 	@PostMapping("tournaments")
 	public Tournament addNewTournament(HttpServletResponse res, @RequestBody Tournament tournament) {
 		Tournament newTournament = tournamentService.addTournament(tournament);
@@ -58,15 +63,56 @@ public class TournamentController {
 		tournamentService.deleteTournamentById(tournamentId);
 	}
 
-	@GetMapping("tournaments/stats/year/{tournamentYear}")
-	public List<Tournament> getTournamentsPlayedByYear(@PathVariable int tournamentYear) {
-		return tournamentService.getTournamentsPlayedByYear(tournamentYear);
+	@GetMapping("tournaments/search/keyword/{keyword}")
+	public List<Tournament> searchTournamentsByKeyword(@PathVariable String keyword) {
+		return tournamentService.getAllTournamentsByNameOrLocation(keyword);
+	}
+
+	@GetMapping("tournaments/search/location/{location}")
+	public List<Tournament> searchTournamentsByLocation(@PathVariable String location) {
+		return tournamentService.getAllTournamentsByLocation(location);
+	}
+
+	@GetMapping("tournaments/search/teir/{teir}")
+	public List<Tournament> searchTournamentsByTier(@PathVariable String tier) {
+		return tournamentService.getAllTournamentsByTier(tier);
+	}
+
+	@GetMapping("tournaments/search/month/{month}")
+	public List<Tournament> searchTournamentsByMonth(@PathVariable int month) {
+		return tournamentService.getAllTournamentsByMonth(month);
+	}
+
+	@GetMapping("tournaments/search/year/{year}")
+	public List<Tournament> searchTournamentsByYear(@PathVariable int year) {
+		return tournamentService.getAllTournamentsByYear(year);
+	}
+
+	@GetMapping("tournaments/search/multiday{multiDay}")
+	public List<Tournament> searchTournamentsByYear(@PathVariable boolean multiDay) {
+		return tournamentService.getAllTournamentsByMultiDay(multiDay);
+	}
+
+	@GetMapping("tournaments/search/players{players}")
+	public List<Tournament> searchTournamentsByPlayersGreaterThanEqual(@PathVariable int players) {
+		return tournamentService.getAllTournamentsByPlayersGreaterThanEqual(players);
+	}
+
+	@GetMapping("tournaments/search/entryfee{entryFee}")
+	public List<Tournament> searchTournamentsByEntryFeeLessThanEqual(@PathVariable int entryFee) {
+		return tournamentService.getAllTournamentsByEntryFeeLessThanEqual(entryFee);
+	}
+
+	@GetMapping("tournaments/search/points{points}")
+	public List<Tournament> searchTournamentsByPointsGreaterThanEqual(@PathVariable int points) {
+		return tournamentService.getAllTournamentsByPointsGreaterThanEqual(points);
 	}
 
 	@GetMapping("tournaments/stats/wins")
 	public List<Tournament> getTournamentWins() {
 		return tournamentService.getAllTournamentWins();
 	}
+
 	@GetMapping("tournaments/stats/podiumfinishes")
 	public List<Tournament> getPodiumFinishes() {
 		return tournamentService.getAllPodiumFinishes();
@@ -81,35 +127,5 @@ public class TournamentController {
 	public List<Tournament> getTop10Finishes() {
 		return tournamentService.getTop10Finishes();
 	}
-	
-	@GetMapping("tournaments/stats/averageplacement")
-	public double getAveragePlacement() {
-		return tournamentService.calculateAveragePlacement();
-	}
-	
-	@GetMapping("tournaments/stats/podiumfinishes/count")
-	public double countPodiumFinishes() {
-		return tournamentService.countPodiumFinishes();
-	}
-	
-	@GetMapping("tournaments/stats/wins/percentage")
-	public double getWinPercentage() {
-		return tournamentService.calculateWinPercentage();
-	}
-	
-	@GetMapping("tournaments/stats/podiumfinishes/percentage")
-	public double getPodiumPercentage() {
-		return tournamentService.calculatePodiumPercentage();
-	}
-	
-	@GetMapping("tournaments/stats/top5finishes/percentage")
-	public double getTop5Percentage() {
-		return tournamentService.calculateTop5Percentage();
-	}
-	
-	@GetMapping("tournaments/stats/top10finishes/percentage")
-	public double getTop10Percentage() {
-		return tournamentService.calculateTop10Percentage();
-	}
-	
+
 }
