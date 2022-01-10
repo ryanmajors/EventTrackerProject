@@ -53,7 +53,7 @@ Go to http://3.131.230.226/:8083/DGTournamentTracker/index.html
 + Java
 + Spring MVC Boot
 + Github
-+ Gradel
++ Gradle
 
 ## Lessons Learned
 One of the biggest lessons I learned by programming the backend was how much you can do with a single table. When I reached MVP with basic crud functionality, the fun really began. My mind started racing on what else I wanted to do with the application. I started with some basic stat manipulation. Then moved to listing out different tournaments by stats. Finally I wrote several more queries for my repository. Through all this, I realized how easy it is to write service methods once you have a foundation to work with.
