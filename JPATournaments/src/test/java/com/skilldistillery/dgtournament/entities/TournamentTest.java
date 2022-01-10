@@ -14,7 +14,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class TournamentTest {
-	
+
 	private static EntityManagerFactory emf;
 	private EntityManager em;
 	private Tournament tournament;
@@ -44,7 +44,7 @@ class TournamentTest {
 	@Test
 	void test_tournament_entity_mapping() {
 		assertNotNull(tournament);
-		assertEquals("Mile High Classic", tournament.getName());
+		assertEquals("Winter Fling Presented by Mile High Disc Golf Club", tournament.getName());
 	}
 
 }

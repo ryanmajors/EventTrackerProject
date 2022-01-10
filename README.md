@@ -32,14 +32,14 @@ Go to http://3.131.230.226/:8083/DGTournamentTracker/index.html
 | Tournament           | PUT         | /api/tournaments/{tournamentId}/hide        | Tournament JSON | Update   |
 | Void                 | DELETE      | /api/tournaments /{tournamentId}            |                 | Delete   |
 | List \<Tournaments\> | GET         | /api/tournaments/search/keyword/{keyword}   |                 | List     |
-| List \<Tournaments\> | GET         | /api/tournaments/search/location/{location} |                 | List     |
-| List \<Tournaments\> | GET         | /api/tournaments/search/tier/{tier}         |                 | List     |
-| List \<Tournaments\> | GET         | /api/tournaments/search/month/{month}       |                 | List     |
-| List \<Tournaments\> | GET         | /api/tournaments/search/year/{year}         |                 | List     |
-| List \<Tournaments\> | GET         | /api/tournaments/search/multiday/{multiDay} |                 | List     |
-| List \<Tournaments\> | GET         | /api/tournaments/search/players/{players}   |                 | List     |
-| List \<Tournaments\> | GET         | /api/tournaments/search/entryfee/{entryFee} |                 | List     |
-| List \<Tournaments\> | GET         | /api/tournaments/search/points/{points}     |                 | List     |
+| List \<Tournaments\> | GET         | /api/tournaments/filter/location/{location} |                 | List     |
+| List \<Tournaments\> | GET         | /api/tournaments/filter/tier/{tier}         |                 | List     |
+| List \<Tournaments\> | GET         | /api/tournaments/filter/month/{month}       |                 | List     |
+| List \<Tournaments\> | GET         | /api/tournaments/filter/year/{year}         |                 | List     |
+| List \<Tournaments\> | GET         | /api/tournaments/filter/multiday/{multiDay} |                 | List     |
+| List \<Tournaments\> | GET         | /api/tournaments/filter/players/{players}   |                 | List     |
+| List \<Tournaments\> | GET         | /api/tournaments/filter/entryfee/{entryFee} |                 | List     |
+| List \<Tournaments\> | GET         | /api/tournaments/filter/points/{points}     |                 | List     |
 | List \<Tournaments\> | GET         | /api/tournaments/stats/wins                 |                 | List     |
 | List \<Tournaments\> | GET         | /api/tournaments/stats/podiumfinishes       |                 | List     |
 | List \<Tournaments\> | GET         | /api/tournaments/stats/top5finishes         |                 | List     |

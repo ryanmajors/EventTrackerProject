@@ -68,43 +68,43 @@ public class TournamentController {
 		return tournamentService.getAllTournamentsByNameOrLocation(keyword);
 	}
 
-	@GetMapping("tournaments/search/location/{location}")
-	public List<Tournament> searchTournamentsByLocation(@PathVariable String location) {
+	@GetMapping("tournaments/filter/location/{location}")
+	public List<Tournament> filterTournamentsByLocation(@PathVariable String location) {
 		return tournamentService.getAllTournamentsByLocation(location);
 	}
 
-	@GetMapping("tournaments/search/teir/{teir}")
-	public List<Tournament> searchTournamentsByTier(@PathVariable String tier) {
+	@GetMapping("tournaments/filter/tier/{tier}")
+	public List<Tournament> filterTournamentsByTier(@PathVariable String tier) {
 		return tournamentService.getAllTournamentsByTier(tier);
 	}
 
-	@GetMapping("tournaments/search/month/{month}")
-	public List<Tournament> searchTournamentsByMonth(@PathVariable int month) {
+	@GetMapping("tournaments/filter/month/{month}")
+	public List<Tournament> filterTournamentsByMonth(@PathVariable int month) {
 		return tournamentService.getAllTournamentsByMonth(month);
 	}
 
-	@GetMapping("tournaments/search/year/{year}")
-	public List<Tournament> searchTournamentsByYear(@PathVariable int year) {
+	@GetMapping("tournaments/filter/year/{year}")
+	public List<Tournament> filterTournamentsByYear(@PathVariable int year) {
 		return tournamentService.getAllTournamentsByYear(year);
 	}
 
-	@GetMapping("tournaments/search/multiday{multiDay}")
-	public List<Tournament> searchTournamentsByYear(@PathVariable boolean multiDay) {
+	@GetMapping("tournaments/filter/multiday{multiDay}")
+	public List<Tournament> filterTournamentsByMultiDay(@PathVariable boolean multiDay) {
 		return tournamentService.getAllTournamentsByMultiDay(multiDay);
 	}
 
-	@GetMapping("tournaments/search/players{players}")
-	public List<Tournament> searchTournamentsByPlayersGreaterThanEqual(@PathVariable int players) {
+	@GetMapping("tournaments/filter/players{players}")
+	public List<Tournament> filterTournamentsByPlayersGreaterThanEqual(@PathVariable int players) {
 		return tournamentService.getAllTournamentsByPlayersGreaterThanEqual(players);
 	}
 
-	@GetMapping("tournaments/search/entryfee{entryFee}")
-	public List<Tournament> searchTournamentsByEntryFeeLessThanEqual(@PathVariable int entryFee) {
+	@GetMapping("tournaments/filter/entryfee{entryFee}")
+	public List<Tournament> filterTournamentsByEntryFeeLessThanEqual(@PathVariable int entryFee) {
 		return tournamentService.getAllTournamentsByEntryFeeLessThanEqual(entryFee);
 	}
 
-	@GetMapping("tournaments/search/points{points}")
-	public List<Tournament> searchTournamentsByPointsGreaterThanEqual(@PathVariable int points) {
+	@GetMapping("tournaments/filter/points{points}")
+	public List<Tournament> filterTournamentsByPointsGreaterThanEqual(@PathVariable int points) {
 		return tournamentService.getAllTournamentsByPointsGreaterThanEqual(points);
 	}
 
@@ -120,12 +120,12 @@ public class TournamentController {
 
 	@GetMapping("tournaments/stats/top5finishes")
 	public List<Tournament> getTop5Finishes() {
-		return tournamentService.getTop5Finishes();
+		return tournamentService.getAllTop5Finishes();
 	}
 
 	@GetMapping("tournaments/stats/top10finishes")
 	public List<Tournament> getTop10Finishes() {
-		return tournamentService.getTop10Finishes();
+		return tournamentService.getAllTop10Finishes();
 	}
 
 }

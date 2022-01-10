@@ -82,12 +82,12 @@ public class TournamentServiceImpl implements TournamentService {
 
 	@Override
 	public int countTop5Finishes() {
-		return getTop5Finishes().size();
+		return getAllTop5Finishes().size();
 	}
 
 	@Override
 	public int countTop10Finishes() {
-		return getTop10Finishes().size();
+		return getAllTop10Finishes().size();
 	}
 
 	@Override
@@ -117,7 +117,7 @@ public class TournamentServiceImpl implements TournamentService {
 
 	@Override
 	public double calculateAveragePointsPerYear(int year) {
-		return countTotalPointsPerYear(year) / countTournamentsPlayedByYear(year);
+		return countTotalPointsPerYear(year) / 4;
 	}
 
 	@Override
@@ -190,7 +190,7 @@ public class TournamentServiceImpl implements TournamentService {
 	public List<Tournament> getAllTournamentsByEntryFeeLessThanEqual(double entryFee) {
 		return tournamentRepo.findByEntryFeeLessThanEqual(entryFee);
 	}
-	
+
 	@Override
 	public List<Tournament> getAllTournamentsByPointsGreaterThanEqual(int points) {
 		return tournamentRepo.findByPointsGreaterThanEqual(points);
@@ -207,12 +207,12 @@ public class TournamentServiceImpl implements TournamentService {
 	}
 
 	@Override
-	public List<Tournament> getTop5Finishes() {
+	public List<Tournament> getAllTop5Finishes() {
 		return tournamentRepo.findByPlacementLessThanEqual(5);
 	}
 
 	@Override
-	public List<Tournament> getTop10Finishes() {
+	public List<Tournament> getAllTop10Finishes() {
 		return tournamentRepo.findByPlacementLessThanEqual(10);
 	}
 
