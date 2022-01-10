@@ -46,29 +46,6 @@ Go to http://3.131.230.226/:8083/DGTournamentTracker/index.html
 | List \<Tournaments\> | GET         | /api/tournaments/stats/top10finishes        |                 | List     |
 <!-- | List \<Tournaments\> | GET         | /api/tournaments/filter/points/{points}     |                 | List     | -->
 
-|Return Type           | HTTP Method | URI                                         | Request Body    | Purpose  |
-|----------------------|-------------|---------------------------------------------|-----------------|----------|
-| List \<Tournaments\> | GET         | /api/tournaments                            |                 | List     |
-| Tournament           | GET         | /api/tournaments/{tournamentId}             |                 | Retrieve |
-| Tournament           | GET         | /api/tournaments/{tournamentName}           |                 | Retrieve |
-| Tournament           | POST        | /api/tournaments                            | Tournament JSON | Create   |
-| Tournament           | PUT         | /api/tournaments/{tournamentId}             | Tournament JSON | Update   |
-| Tournament           | PUT         | /api/tournaments/{tournamentId}/hide        | Tournament JSON | Update   |
-| Void                 | DELETE      | /api/tournaments /{tournamentId}            |                 | Delete   |
-| List \<Tournaments\> | GET         | /api/tournaments/search/keyword/{keyword}   |                 | List     |
-| List \<Tournaments\> | GET         | /api/tournaments/filter/location/{location} |                 | List     |
-| List \<Tournaments\> | GET         | /api/tournaments/filter/tier/{tier}         |                 | List     |
-| List \<Tournaments\> | GET         | /api/tournaments/filter/month/{month}       |                 | List     |
-| List \<Tournaments\> | GET         | /api/tournaments/filter/year/{year}         |                 | List     |
-| List \<Tournaments\> | GET         | /api/tournaments/stats/wins                 |                 | List     |
-| List \<Tournaments\> | GET         | /api/tournaments/stats/podiumfinishes       |                 | List     |
-| List \<Tournaments\> | GET         | /api/tournaments/stats/top5finishes         |                 | List     |
-| List \<Tournaments\> | GET         | /api/tournaments/stats/top10finishes        |                 | List     |
-<!-- | List \<Tournaments\> | GET         | /api/tournaments/filter/multiday/{multiDay} |                 | List     |
-| List \<Tournaments\> | GET         | /api/tournaments/filter/players/{players}   |                 | List     |
-| List \<Tournaments\> | GET         | /api/tournaments/filter/entryfee/{entryFee} |                 | List     |
-| List \<Tournaments\> | GET         | /api/tournaments/filter/points/{points}     |                 | List     | -->
-
 
 ## Technologies Used
 + mySQL workbench
