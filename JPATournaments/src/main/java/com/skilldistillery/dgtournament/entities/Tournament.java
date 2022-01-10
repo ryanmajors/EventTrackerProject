@@ -1,7 +1,5 @@
 package com.skilldistillery.dgtournament.entities;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,42 +12,43 @@ public class Tournament {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	private String name;
-	
+
 	private String tier;
-	
+
 	private String location;
-	
-	@Column(name="tournament_date")
-	private Date tournamentDate;
-	
-	@Column(name="multi_day")
+
+	private int month;
+
+	private int year;
+
+	@Column(name = "multi_day")
 	private boolean multiDay;
-	
+
 	private int days;
-	
+
 	private int players;
-	
-	@Column(name="entry_fee")
+
+	@Column(name = "entry_fee")
 	private double entryFee;
-	
+
 	private int placement;
-	
+
 	private int points;
-	
+
 	private boolean hidden;
 
 	public Tournament() {
 		super();
 	}
 
-	public Tournament(String name, String tier, String location, Date tournamentDate, boolean multiDay, boolean hidden) {
+	public Tournament(String name, String tier, String location, int month, boolean multiDay, boolean hidden) {
 		super();
 		this.name = name;
 		this.tier = tier;
 		this.location = location;
-		this.tournamentDate = tournamentDate;
+		this.month = month;
 		this.multiDay = multiDay;
 		this.hidden = hidden;
 	}
@@ -86,12 +85,20 @@ public class Tournament {
 		this.location = location;
 	}
 
-	public Date getTournamentDate() {
-		return tournamentDate;
+	public int getMonth() {
+		return month;
 	}
 
-	public void setTournamentDate(Date tournamentDate) {
-		this.tournamentDate = tournamentDate;
+	public void setMonth(int month) {
+		this.month = month;
+	}
+
+	public int getYear() {
+		return year;
+	}
+
+	public void setYear(int year) {
+		this.year = year;
 	}
 
 	public boolean isMultiDay() {
@@ -152,11 +159,9 @@ public class Tournament {
 
 	@Override
 	public String toString() {
-		return "Tournament [id=" + id + ", name=" + name + ", tier=" + tier + ", location=" + location
-				+ ", tournamentDate=" + tournamentDate + ", multiDay=" + multiDay + ", days=" + days + ", players="
-				+ players + ", entryFee=" + entryFee + ", placement=" + placement + ", points=" + points + "]";
+		return "Tournament [id=" + id + ", name=" + name + ", tier=" + tier + ", location=" + location + ", month="
+				+ month + ", multiDay=" + multiDay + ", days=" + days + ", players=" + players + ", entryFee="
+				+ entryFee + ", placement=" + placement + ", points=" + points + "]";
 	}
 
-	
-	
 }

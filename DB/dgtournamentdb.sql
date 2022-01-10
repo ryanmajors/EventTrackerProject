@@ -25,7 +25,8 @@ CREATE TABLE IF NOT EXISTS `tournament` (
   `name` VARCHAR(150) NOT NULL,
   `tier` VARCHAR(45) NOT NULL,
   `location` VARCHAR(45) NOT NULL,
-  `tournament_date` DATE NOT NULL,
+  `month` INT NOT NULL,
+  `year` INT NULL,
   `multi_day` TINYINT NOT NULL,
   `days` INT NULL,
   `players` INT NULL,
@@ -52,7 +53,7 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `dgtournamentdb`;
-INSERT INTO `tournament` (`id`, `name`, `tier`, `location`, `tournament_date`, `multi_day`, `days`, `players`, `entry_fee`, `placement`, `points`, `hidden`) VALUES (1, 'Mile High Classic', 'B', 'Adam\'s Hollow Disc golf course', '2021-09-27', 1, 1, 18, 55.00, 1, 90, 0);
+INSERT INTO `tournament` (`id`, `name`, `tier`, `location`, `month`, `year`, `multi_day`, `days`, `players`, `entry_fee`, `placement`, `points`, `hidden`) VALUES (1, 'Mile High Classic', 'B', 'Adam\'s Hollow Disc golf course', 07, 2021, 1, 1, 18, 55.00, 1, 90, 0);
 
 COMMIT;
 

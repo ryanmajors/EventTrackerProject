@@ -18,24 +18,36 @@ public interface TournamentService {
 	
 	void deleteTournamentById(int tournamentId);
 
-	// tournaments played
+	int countTournamentsPlayed();
 	
-	// tournaments played by year
+	int countTournamentsPlayedByYear(int tournamentYear);
 	
-	// wins
+	int countWins();
 	
-	// win %
+	int countPodiumFinishes();
 
-	// average placement
+	int countTop5Finishes();
+
+	int countTop10Finishes();
 	
-	// podium finishes 
+	double calculateAveragePlacement();
 	
-	// top 5 
+	double calculateWinPercentage();
 	
-	// top 10
+	double calculatePodiumPercentage();
 	
-	// 
+	double calculateTop5Percentage();
 	
+	double calculateTop10Percentage();
 	
+	List<Tournament> getTournamentsPlayedByYear(int tournamentYear);
+	
+	List<Tournament> getAllTournamentWins();
+	
+	List<Tournament> getAllPodiumFinishes();
+	
+	List<Tournament> getTop5Finishes();
+	
+	List<Tournament> getTop10Finishes();
 
 }
