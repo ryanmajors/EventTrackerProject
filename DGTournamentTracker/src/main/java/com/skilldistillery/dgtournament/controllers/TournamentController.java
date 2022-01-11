@@ -88,7 +88,6 @@ public class TournamentController {
 		return tournamentService.getAllTournamentsByYear(year);
 	}
 	
-
 	@GetMapping("tournaments/filter/multiday/{multiDay}")
 	public List<Tournament> filterTournamentsByMultiDay(@PathVariable boolean multiDay) {
 		return tournamentService.getAllTournamentsByMultiDay(multiDay);
@@ -104,12 +103,11 @@ public class TournamentController {
 		return tournamentService.getAllTournamentsByEntryFeeLessThanEqual(entryFee);
 	}
 
-//	  Couldn't get this mapping to work. Still need to troubleshoot.
-//	@GetMapping("tournaments/filter/points/{points}")
-//	public List<Tournament> filterTournamentsByPointsGreaterThanEqual(@PathVariable int points) {
-//		return tournamentService.getAllTournamentsByPointsGreaterThanEqual(points);
-//	}
-
+	@GetMapping("tournaments/filter/points/{points}")
+	public List<Tournament> filterTournamentsByPointsGreaterThanEqual(@PathVariable int points) {
+		return tournamentService.getAllTournamentsByPointsGreaterThanEqual(points);
+	}
+	
 	@GetMapping("tournaments/stats/wins")
 	public List<Tournament> getTournamentWins() {
 		return tournamentService.getAllTournamentWins();
