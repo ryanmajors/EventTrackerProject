@@ -226,6 +226,18 @@ function displayTournamentPage(tournament) {
   let players = document.createElement("li");
   players.textContent = "Players: " + tournament.players;
   tournamentData.appendChild(players);
+
+  let br = document.createElement('br');
+  tournamentData.appendChild(br);
+
+  let updateButton = document.createElement('button');
+  updateButton.textContent = "UPDATE";
+  tournamentData.appendChild(updateButton);
+
+  let deleteButton = document.createElement('button');
+  deleteButton.textContent = "DELETE";
+  tournamentData.appendChild(deleteButton);
+
 }
 
 function displayTournamentsTable(tournaments) {
@@ -288,6 +300,10 @@ function displayTournamentsTable(tournaments) {
     let date = document.createElement("td");
     date.textContent = tournament.month + "/" + tournament.year;
     row.appendChild(date);
+    row.addEventListener('click', function(e) {
+      e.preventDefault();
+      getTournament(tournament.id);
+    })
     tBody.appendChild(row);
   }
 }
