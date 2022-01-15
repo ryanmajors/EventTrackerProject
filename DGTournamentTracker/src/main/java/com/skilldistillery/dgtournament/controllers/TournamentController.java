@@ -25,37 +25,69 @@ public class TournamentController {
 	private TournamentService tournamentService;
 
 	@GetMapping("tournaments")
-	public List<Tournament> index() {
-		return tournamentService.getAllTournaments();
+	public List<Tournament> index(HttpServletResponse res) {
+		List<Tournament> tournaments = tournamentService.getAllTournaments();
+		if(tournaments.size() <= 0) {
+			res.setStatus(404);
+		} else {
+			res.setStatus(200);
+		}
+		return tournaments;
 	}
 
 	@GetMapping("tournaments/{tournamentId}")
-	public Tournament show(@PathVariable int tournamentId) {
-		return tournamentService.getTournamentById(tournamentId);
+	public Tournament show(@PathVariable int tournamentId, HttpServletResponse res) {
+		Tournament tournament =  tournamentService.getTournamentById(tournamentId);
+		if(tournament == null) {
+			res.setStatus(404);
+		} else {
+			res.setStatus(200);
+		}
+		return tournament;
 	}
 
 	@GetMapping("tournaments/name/{tournamentName}")
-	public Tournament getTournamentByName(@PathVariable String tournamentName) {
-		return tournamentService.getTournamentsByName(tournamentName);
+	public Tournament getTournamentByName(@PathVariable String tournamentName, HttpServletResponse res) {
+		Tournament tournament = tournamentService.getTournamentsByName(tournamentName);
+		if(tournament == null) {
+			res.setStatus(404);
+		} else {
+			res.setStatus(200);
+		}
+		return tournament;
 	}
 
 	@PostMapping("tournaments")
 	public Tournament addNewTournament(HttpServletResponse res, @RequestBody Tournament tournament) {
 		Tournament newTournament = tournamentService.addTournament(tournament);
-		if (newTournament != null) {
+		if (newTournament == null) {
+			res.setStatus(400);
+		} else {
 			res.setStatus(201);
 		}
 		return newTournament;
 	}
 
 	@PutMapping("tournaments/{tournamentId}")
-	public Tournament updateTournament(@RequestBody Tournament tournament, @PathVariable int tournamentId) {
-		return tournamentService.updateTournamentById(tournament, tournamentId);
+	public Tournament updateTournament(@RequestBody Tournament tournament, @PathVariable int tournamentId, HttpServletResponse res) {
+		Tournament updatedTournament = tournamentService.updateTournamentById(tournament, tournamentId);
+		if(updatedTournament != tournament) {
+			res.setStatus(200);
+		} else {
+			res.setStatus(400);
+		}
+		return updatedTournament;
 	}
 
 	@PutMapping("tournaments/{tournamentId}/hide")
-	public Tournament hideTournament(@PathVariable int tournamentId) {
-		return tournamentService.toggleTournamentVisibilityById(tournamentId);
+	public Tournament hideTournament(@PathVariable int tournamentId, HttpServletResponse res) {
+		Tournament hiddenTournament = tournamentService.toggleTournamentVisibilityById(tournamentId);
+		// if(hiddenTournament != tournament) {
+		// 	res.setStatus(200);
+		// } else {
+		// 	res.setStatus(400);
+		// }
+		return hiddenTournament;
 	}
 
 	@DeleteMapping("tournaments/{tournamentId}")
