@@ -3,7 +3,7 @@ console.log("script.js loaded");
 window.addEventListener("load", function (e) {
   console.log("document loaded");
   init();
-  getAllTournamentData(2021);
+  getAllTournamentDataByYear(2021);
 });
 
 function init() {
@@ -20,6 +20,10 @@ function init() {
   allTournamentsButton.addEventListener("click", function (e) {
     e.preventDefault();
     getAllTournaments();
+    let allSeasonsTotals = document.getElementById("seasonTotals");
+    allSeasonsTotals.textContent = "All Seasons Totals";
+    let allTournamentResults = document.getElementById("tournamentResults");
+    allTournamentResults.textContent = "All Tournament Results"
   });
 
   let newTournamentButton = document.getElementById("addTournamentButton");
@@ -34,7 +38,7 @@ function init() {
   year2021.addEventListener("click", function (e) {
     e.preventDefault();
     let year = year2021.textContent;
-    getAllTournamentData(year);
+    getAllTournamentDataByYear(year);
     let seasonTotalYear = document.getElementById("seasonTotals");
     seasonTotalYear.textContent = year + " Season Totals";
     let tournamentResultsYear = document.getElementById("tournamentResults");
@@ -45,7 +49,7 @@ function init() {
   year2020.addEventListener("click", function (e) {
     e.preventDefault();
     let year = year2020.textContent;
-    getAllTournamentData(year);
+    getAllTournamentDataByYear(year);
     let seasonTotalYear = document.getElementById("seasonTotals");
     seasonTotalYear.textContent = year + " Season Totals";
     let tournamentResultsYear = document.getElementById("tournamentResults");
@@ -56,7 +60,7 @@ function init() {
   year2019.addEventListener("click", function (e) {
     e.preventDefault();
     let year = year2019.textContent;
-    getAllTournamentData(year);
+    getAllTournamentDataByYear(year);
     let seasonTotalYear = document.getElementById("seasonTotals");
     seasonTotalYear.textContent = year + " Season Totals";
     let tournamentResultsYear = document.getElementById("tournamentResults");
@@ -67,7 +71,7 @@ function init() {
   year2018.addEventListener("click", function (e) {
     e.preventDefault();
     let year = year2018.textContent;
-    getAllTournamentData(year);
+    getAllTournamentDataByYear(year);
     let seasonTotalYear = document.getElementById("seasonTotals");
     seasonTotalYear.textContent = year + " Season Totals";
     let tournamentResultsYear = document.getElementById("tournamentResults");
@@ -104,6 +108,7 @@ function getAllTournaments() {
       if (xhr.status === 200) {
         let tournaments = JSON.parse(xhr.responseText);
         displayTournamentsTable(tournaments);
+        displayBasicStatsTable(tournaments);
       } else if (xhr.status === 404) {
         console.error("Failed to GET all tournaments");
       } else {
@@ -114,7 +119,7 @@ function getAllTournaments() {
   xhr.send();
 }
 
-function getAllTournamentData(year) {
+function getAllTournamentDataByYear(year) {
   let xhr = new XMLHttpRequest();
   xhr.open("GET", "api/tournaments/filter/year/" + year);
   xhr.onreadystatechange = function () {
@@ -141,7 +146,7 @@ function createTournament(newTournament) {
       if (xhr.status === 200 || xhr.status === 201) {
         let tournament = JSON.parse(xhr.responseText);
         console.log(tournament)
-        getAllTournamentData(2021);
+        getAllTournamentDataByYear(2021);
       } else {
         console.error("tournament create failed with status: " + xhr.status);
       }
@@ -160,7 +165,7 @@ function updateTournament(tournament) {
       if (xhr.status === 200 || xhr.status === 201) {
         let updatedTournament = JSON.parse(xhr.responseText);
         console.log(updatedTournament)
-        getAllTournamentData(2021);
+        getAllTournamentDataByYear(2021);
       } else {
         console.error("tournament create failed with status: " + xhr.status);
       }
@@ -168,6 +173,25 @@ function updateTournament(tournament) {
   };
   xhr.setRequestHeader('content-type', 'application/json');
   xhr.send(JSON.stringify(tournament))
+}
+
+function deleteTournament(tournament) {
+  let tournamentId = tournament.id;
+  let xhr = new XMLHttpRequest();
+  xhr.open("DELETE", "api/tournaments/" + tournamentId);
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4) {
+      if (xhr.status === 200 || xhr.status === 201) {
+        // let updatedTournament = JSON.parse(xhr.responseText);
+        // console.log(updatedTournament)
+        getAllTournamentDataByYear(2021);
+      } else {
+        console.error("tournament create failed with status: " + xhr.status);
+      }
+    }
+  };
+  xhr.send();
+
 }
 
 function displayNewTournamentForm() {
@@ -495,6 +519,11 @@ function displayTournamentPage(tournament) {
   let deleteButton = document.createElement("button");
   deleteButton.textContent = "DELETE";
   tournamentData.appendChild(deleteButton);
+
+  deleteButton.addEventListener('click', function (e) {
+    e.preventDefault();
+    deleteTournament(tournament);
+  })
 }
 
 function displayTournamentsTable(tournaments) {
