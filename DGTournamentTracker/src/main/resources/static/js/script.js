@@ -151,6 +151,25 @@ function createTournament(newTournament) {
   xhr.send(JSON.stringify(newTournament))
 }
 
+function updateTournament(tournament) {
+  let tournamentId = tournament.id;
+  let xhr = new XMLHttpRequest();
+  xhr.open("PUT", "api/tournaments/" + tournamentId);
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4) {
+      if (xhr.status === 200 || xhr.status === 201) {
+        let updatedTournament = JSON.parse(xhr.responseText);
+        console.log(updatedTournament)
+        getAllTournamentData(2021);
+      } else {
+        console.error("tournament create failed with status: " + xhr.status);
+      }
+    }
+  };
+  xhr.setRequestHeader('content-type', 'application/json');
+  xhr.send(JSON.stringify(tournament))
+}
+
 function displayNewTournamentForm() {
   let addNewTournamentTitle = document.getElementById("tournamentResults");
   addNewTournamentTitle.textContent = "Add New Tournament Form";
@@ -165,7 +184,7 @@ function displayNewTournamentForm() {
 
   let nameLabel = document.createElement("label");
   nameLabel.for = "nameField";
-  nameLabel.textContent = "Tournament Name";
+  nameLabel.textContent = "Tournament Name: ";
   tournamentForm.appendChild(nameLabel);
 
   let nameInput = document.createElement("input");
@@ -179,7 +198,7 @@ function displayNewTournamentForm() {
 
   let tierLabel = document.createElement("label");
   tierLabel.for = "tierField";
-  tierLabel.textContent = "Tier";
+  tierLabel.textContent = "Tier: ";
   tournamentForm.appendChild(tierLabel);
 
   let tierInput = document.createElement("input");
@@ -193,7 +212,7 @@ function displayNewTournamentForm() {
 
   let locationLabel = document.createElement("label");
   locationLabel.for = "locationField";
-  locationLabel.textContent = "Location";
+  locationLabel.textContent = "Location: ";
   tournamentForm.appendChild(locationLabel);
 
   let locationInput = document.createElement("input");
@@ -207,7 +226,7 @@ function displayNewTournamentForm() {
 
   let monthLabel = document.createElement("label");
   monthLabel.for = "monthField";
-  monthLabel.textContent = "Month";
+  monthLabel.textContent = "Month: ";
   tournamentForm.appendChild(monthLabel);
 
   let monthInput = document.createElement("input");
@@ -221,7 +240,7 @@ function displayNewTournamentForm() {
 
   let yearLabel = document.createElement("label");
   yearLabel.for = "yearField";
-  yearLabel.textContent = "Year";
+  yearLabel.textContent = "Year: ";
   tournamentForm.appendChild(yearLabel);
 
   let yearInput = document.createElement("input");
@@ -249,6 +268,113 @@ function displayNewTournamentForm() {
     newTournament.month = f.monthField.value;
     newTournament.year = f.yearField.value;
     createTournament(newTournament);
+  });
+}
+
+function displayUpdateTournamentForm(tournament) {
+
+  let addNewTournamentTitle = document.getElementById("tournamentResults");
+  addNewTournamentTitle.textContent = "Update Tournament Form";
+
+  let tournamentFormData = document.getElementById("tournamentData");
+  tournamentFormData.textContent = "";
+
+  let updateTournamentForm = document.createElement("form");
+  updateTournamentForm.id = "addTournamentForm";
+  updateTournamentForm.name = updateTournamentForm.id;
+  tournamentFormData.appendChild(updateTournamentForm);
+
+  let nameLabel = document.createElement("label");
+  nameLabel.for = "nameField";
+  nameLabel.textContent = "Tournament Name: ";
+  updateTournamentForm.appendChild(nameLabel);
+
+  let nameInput = document.createElement("input");
+  nameInput.class = "updateTournamentFormInputFields";
+  nameInput.type = "text";
+  nameInput.name = "nameField";
+  nameInput.value = tournament.name;
+  updateTournamentForm.appendChild(nameInput);
+
+  let nameBr = document.createElement("br");
+  updateTournamentForm.appendChild(nameBr);
+
+  let tierLabel = document.createElement("label");
+  tierLabel.for = "tierField";
+  tierLabel.textContent = "Tier: ";
+  updateTournamentForm.appendChild(tierLabel);
+
+  let tierInput = document.createElement("input");
+  tierInput.class = "updateTournamentFormInputFields";
+  tierInput.type = "text";
+  tierInput.name = "tierField";
+  tierInput.value = tournament.tier;
+  updateTournamentForm.appendChild(tierInput);
+
+  let tierBr = document.createElement("br");
+  updateTournamentForm.appendChild(tierBr);
+
+  let locationLabel = document.createElement("label");
+  locationLabel.for = "locationField";
+  locationLabel.textContent = "Location: ";
+  updateTournamentForm.appendChild(locationLabel);
+
+  let locationInput = document.createElement("input");
+  locationInput.class = "updateTournamentFormInputFields";
+  locationInput.type = "text";
+  locationInput.name = "locationField";
+  locationInput.value = tournament.location;
+  updateTournamentForm.appendChild(locationInput);
+
+  let locationBr = document.createElement("br");
+  updateTournamentForm.appendChild(locationBr);
+
+  let monthLabel = document.createElement("label");
+  monthLabel.for = "monthField";
+  monthLabel.textContent = "Month: ";
+  updateTournamentForm.appendChild(monthLabel);
+
+  let monthInput = document.createElement("input");
+  monthInput.class = "updateTournamentFormInputFields";
+  monthInput.type = "text";
+  monthInput.name = "monthField";
+  monthInput.value = tournament.month;
+  updateTournamentForm.appendChild(monthInput);
+
+  let monthBr = document.createElement("br");
+  updateTournamentForm.appendChild(monthBr);
+
+  let yearLabel = document.createElement("label");
+  yearLabel.for = "yearField";
+  yearLabel.textContent = "Year: ";
+  updateTournamentForm.appendChild(yearLabel);
+
+  let yearInput = document.createElement("input");
+  yearInput.class = "updateTournamentFormInputFields";
+  yearInput.type = "text";
+  yearInput.name = "yearField";
+  yearInput.value = tournament.year;
+  updateTournamentForm.appendChild(yearInput);
+
+  let yearBr = document.createElement("br");
+  updateTournamentForm.appendChild(yearBr);
+
+  let updateTournamentButton = document.createElement("input");
+  updateTournamentButton.type = "submit";
+  updateTournamentButton.name = "updateTournament";
+  updateTournamentButton.value = "Update";
+  updateTournamentForm.appendChild(updateTournamentButton);
+
+  updateTournamentButton.addEventListener("click", function (e) {
+    e.preventDefault();
+    let f = updateTournamentForm;
+    
+    tournament.name = f.nameField.value;
+    tournament.tier = f.tierField.value;
+    tournament.location = f.locationField.value;
+    tournament.month = f.monthField.value;
+    tournament.year = f.yearField.value;
+    updateTournament(tournament);
   });
 }
 
@@ -334,7 +460,7 @@ function displayTournamentPage(tournament) {
   let tournamentDetails = document.createElement("ul");
   tournamentData.appendChild(tournamentDetails);
 
-  let tournamentName = document.createElement("h5");
+  let tournamentName = document.createElement("h4");
   tournamentName.textContent = tournament.name;
   tournamentData.appendChild(tournamentName);
 
@@ -360,6 +486,11 @@ function displayTournamentPage(tournament) {
   let updateButton = document.createElement("button");
   updateButton.textContent = "UPDATE";
   tournamentData.appendChild(updateButton);
+
+  updateButton.addEventListener('click', function (e) {
+    e.preventDefault();
+    displayUpdateTournamentForm(tournament);
+  });
 
   let deleteButton = document.createElement("button");
   deleteButton.textContent = "DELETE";
