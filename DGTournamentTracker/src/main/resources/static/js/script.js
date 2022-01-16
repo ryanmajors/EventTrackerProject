@@ -23,7 +23,7 @@ function init() {
     let allSeasonsTotals = document.getElementById("seasonTotals");
     allSeasonsTotals.textContent = "All Seasons Totals";
     let allTournamentResults = document.getElementById("tournamentResults");
-    allTournamentResults.textContent = "All Tournament Results"
+    allTournamentResults.textContent = "All Tournament Results";
   });
 
   let newTournamentButton = document.getElementById("addTournamentButton");
@@ -32,7 +32,24 @@ function init() {
     displayNewTournamentForm();
   });
 
-  let addNewTournamentButton = document.getElementById('')
+  let detailedStatsButton = document.getElementById("detailedStats");
+  detailedStatsButton.addEventListener("click", function (e) {
+    e.preventDefault();
+    getAllTournaments();
+    let detailedStatsTitle = document.getElementById("seasonTotals");
+    detailedStatsTitle.textContent = "Detailed Player Stats";
+
+    let tournamentWinsResults = document.getElementById("tournamentResults");
+    tournamentWinsResults.textContent = "All Tournament Results";
+  });
+
+  let getWinsButton = document.getElementById('careerWins');
+  getWinsButton.addEventListener('click', function (e) {
+    e.preventDefault();
+    getAllTournamentWins();
+    let tournamentWinsResults = document.getElementById("tournamentResults");
+    tournamentWinsResults.textContent = "Tournament Wins";
+  });
 
   let year2021 = document.getElementById("year2021");
   year2021.addEventListener("click", function (e) {
@@ -109,6 +126,7 @@ function getAllTournaments() {
         let tournaments = JSON.parse(xhr.responseText);
         displayTournamentsTable(tournaments);
         displayBasicStatsTable(tournaments);
+        displaydetailedStatsTable(tournaments);
       } else if (xhr.status === 404) {
         console.error("Failed to GET all tournaments");
       } else {
@@ -138,6 +156,24 @@ function getAllTournamentDataByYear(year) {
   xhr.send();
 }
 
+function getAllTournamentWins() {
+  let xhr = new XMLHttpRequest();
+  xhr.open('GET', "api/tournaments/stats/wins");
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4) {
+      if(xhr.status === 200) {
+        let wins = JSON.parse(xhr.responseText);
+        displayWinsTable(wins);
+      } else if (xhr.status === 404) {
+        console.error('Faled to get tournaments by Wins');
+      } else {
+        displayError('Error retrieving tournaments by Wins: ' + xhr.status);
+      }
+    }
+  };
+  xhr.send();
+}
+
 function createTournament(newTournament) {
   let xhr = new XMLHttpRequest();
   xhr.open("POST", "api/tournaments");
@@ -145,15 +181,15 @@ function createTournament(newTournament) {
     if (xhr.readyState === 4) {
       if (xhr.status === 200 || xhr.status === 201) {
         let tournament = JSON.parse(xhr.responseText);
-        console.log(tournament)
+        console.log(tournament);
         getAllTournamentDataByYear(2021);
       } else {
         console.error("tournament create failed with status: " + xhr.status);
       }
     }
   };
-  xhr.setRequestHeader('content-type', 'application/json');
-  xhr.send(JSON.stringify(newTournament))
+  xhr.setRequestHeader("content-type", "application/json");
+  xhr.send(JSON.stringify(newTournament));
 }
 
 function updateTournament(tournament) {
@@ -164,15 +200,15 @@ function updateTournament(tournament) {
     if (xhr.readyState === 4) {
       if (xhr.status === 200 || xhr.status === 201) {
         let updatedTournament = JSON.parse(xhr.responseText);
-        console.log(updatedTournament)
+        console.log(updatedTournament);
         getAllTournamentDataByYear(2021);
       } else {
         console.error("tournament create failed with status: " + xhr.status);
       }
     }
   };
-  xhr.setRequestHeader('content-type', 'application/json');
-  xhr.send(JSON.stringify(tournament))
+  xhr.setRequestHeader("content-type", "application/json");
+  xhr.send(JSON.stringify(tournament));
 }
 
 function deleteTournament(tournament) {
@@ -191,7 +227,6 @@ function deleteTournament(tournament) {
     }
   };
   xhr.send();
-
 }
 
 function displayNewTournamentForm() {
@@ -296,7 +331,6 @@ function displayNewTournamentForm() {
 }
 
 function displayUpdateTournamentForm(tournament) {
-
   let addNewTournamentTitle = document.getElementById("tournamentResults");
   addNewTournamentTitle.textContent = "Update Tournament Form";
 
@@ -392,7 +426,7 @@ function displayUpdateTournamentForm(tournament) {
   updateTournamentButton.addEventListener("click", function (e) {
     e.preventDefault();
     let f = updateTournamentForm;
-    
+
     tournament.name = f.nameField.value;
     tournament.tier = f.tierField.value;
     tournament.location = f.locationField.value;
@@ -448,9 +482,9 @@ function displayBasicStatsTable(tournaments) {
   let seasonWins = 0;
 
   for (const tournament of tournaments) {
-    pointsPerSeasonTotal += tournament.points;
+    pointsPerSeasonTotal += Math.round(tournament.points * 100) / 100;
     if (tournament.placement === 1) {
-      winCounter = 1;
+      let winCounter = 1;
       seasonWins += winCounter;
     }
   }
@@ -470,7 +504,194 @@ function displayBasicStatsTable(tournaments) {
 }
 
 // display all stats and organize by year in table.
-function displayAllStats() {}
+function displaydetailedStatsTable(tournaments) {
+  let detailedStatData = document.getElementById("statData");
+  detailedStatData.textContent = "";
+
+  let statTable = document.createElement("table");
+  statTable.id = "statTable";
+  statTable.name = statTable.id;
+  detailedStatData.appendChild(statTable);
+
+  let tHead = document.createElement("thead");
+  statTable.appendChild(tHead);
+
+  let tRow = document.createElement("tr");
+  tHead.appendChild(tRow);
+
+  let tournamentsPlayed = document.createElement("th");
+  tournamentsPlayed.textContent = "Tournaments";
+  tRow.appendChild(tournamentsPlayed);
+
+  let wins = document.createElement("th");
+  wins.textContent = "Wins";
+  tRow.appendChild(wins);
+
+  let winPercentage = document.createElement("th");
+  winPercentage.textContent = "Win Percentage";
+  tRow.appendChild(winPercentage);
+
+  let podiumFinishes = document.createElement("th");
+  podiumFinishes.textContent = "Podium Finishes";
+  tRow.appendChild(podiumFinishes);
+
+  let podiumPercentage = document.createElement("th");
+  podiumPercentage.textContent = "Podium Percentage";
+  tRow.appendChild(podiumPercentage);
+
+  let top5Finishes = document.createElement("th");
+  top5Finishes.textContent = "Top 5 Finishes";
+  tRow.appendChild(top5Finishes);
+
+  let top5Percentage = document.createElement("th");
+  top5Percentage.textContent = "Top 5 Percentage";
+  tRow.appendChild(top5Percentage);
+
+  let top10Finishes = document.createElement("th");
+  top10Finishes.textContent = "Top 10 Finishes";
+  tRow.appendChild(top10Finishes);
+
+  let top10Percentage = document.createElement("th");
+  top10Percentage.textContent = "Top 10 Percentage";
+  tRow.appendChild(top10Percentage);
+
+  let tBody = document.createElement("tbody");
+  statTable.appendChild(tBody);
+
+  let row = document.createElement("tr");
+  tBody.appendChild(row);
+
+  let totalTournamentsPlayed = document.createElement("td");
+  totalTournamentsPlayed.textContent = tournaments.length;
+  row.appendChild(totalTournamentsPlayed);
+
+  let detailedStatsWins = 0;
+
+  let podiumCount = 0;
+
+  let top5Count = 0;
+
+  let top10Count = 0;
+
+  for (const tournament of tournaments) {
+    if (tournament.placement === 1) {
+      let winCounter = 1;
+      detailedStatsWins += winCounter;
+    }
+    if (tournament.placement <= 3) {
+      let podiumCounter = 1;
+      podiumCount += podiumCounter;
+    }
+    if (tournament.placement <= 5) {
+      let top5FinishCounter = 1;
+      top5Count += top5FinishCounter;
+    }
+    if (tournament.placement <= 10) {
+      let top10FinishCounter = 1;
+      top10Count += top10FinishCounter;
+    }
+  }
+  
+  let detailedStatsWinsCount = document.createElement("td");
+  detailedStatsWinsCount.textContent = detailedStatsWins;
+  row.appendChild(detailedStatsWinsCount);
+
+  let detailedStatsWinPercentage = document.createElement('td');
+  detailedStatsWinPercentage.textContent = Math.round((detailedStatsWins/totalTournamentsPlayed.textContent)*100)/100 + "%";
+  row.appendChild(detailedStatsWinPercentage);
+
+  let detailedStatsPodiumFinishes = document.createElement('td');
+  detailedStatsPodiumFinishes.textContent = podiumCount;
+  row.appendChild(detailedStatsPodiumFinishes);
+
+  let detailedStatsPodiumPercentage = document.createElement('td');
+  detailedStatsPodiumPercentage.textContent = Math.round((podiumCount/totalTournamentsPlayed.textContent)*100)/100 + "%";
+  row.appendChild(detailedStatsPodiumPercentage);
+
+  let detailedStatsTop5Finishes = document.createElement('td');
+  detailedStatsTop5Finishes.textContent = top5Count;
+  row.appendChild(detailedStatsTop5Finishes);
+
+  let detailedStatsTop5Percentage = document.createElement('td');
+  detailedStatsTop5Percentage.textContent = Math.round((top5Count/totalTournamentsPlayed.textContent)*100)/100 + "%";
+  row.appendChild(detailedStatsTop5Percentage);
+
+  let detailedStatsTop10Finishes = document.createElement('td');
+  detailedStatsTop10Finishes.textContent = top10Count;
+  row.appendChild(detailedStatsTop10Finishes);
+
+  let detailedStatsTop10Percentage = document.createElement('td');
+  detailedStatsTop10Percentage.textContent = Math.round((top10Count/totalTournamentsPlayed.textContent)*100)/100 + "%";
+  row.appendChild(detailedStatsTop10Percentage);
+}
+
+function displayWinsTable(tournaments) {
+  let tournamentData = document.getElementById("tournamentData");
+  tournamentData.textContent = "";
+
+  let winsTable = document.createElement("table");
+  winsTable.id = "winsTable";
+  winsTable.name = winsTable.id;
+  tournamentData.appendChild(winsTable);
+
+  let tHead = document.createElement("thead");
+  winsTable.appendChild(tHead);
+
+  let tRow = document.createElement("tr");
+  tHead.appendChild(tRow);
+
+  let place = document.createElement("th");
+  place.textContent = "Place";
+  tRow.appendChild(place);
+
+  let points = document.createElement("th");
+  points.textContent = "Points";
+  tRow.appendChild(points);
+
+  let tournamentName = document.createElement("th");
+  tournamentName.textContent = "Tournament";
+  tRow.appendChild(tournamentName);
+
+  let tier = document.createElement("th");
+  tier.textContent = "Tier";
+  tRow.appendChild(tier);
+
+  let date = document.createElement("th");
+  date.textContent = "Date";
+  tRow.appendChild(date);
+
+  let tBody = document.createElement("tbody");
+  winsTable.appendChild(tBody);
+
+  for (const tournament of tournaments) {
+    let row = document.createElement("tr");
+
+    let place = document.createElement("td");
+    place.textContent = tournament.placement;
+    row.appendChild(place);
+
+    let points = document.createElement("td");
+    points.textContent = tournament.points;
+    row.appendChild(points);
+
+    let tournamentName = document.createElement("td");
+    tournamentName.textContent = tournament.name;
+    row.appendChild(tournamentName);
+
+    let tier = document.createElement("td");
+    tier.textContent = tournament.tier;
+    row.appendChild(tier);
+
+    let date = document.createElement("td");
+    date.textContent = tournament.month + "/" + tournament.year;
+    row.appendChild(date);
+    row.addEventListener("click", function (e) {
+      e.preventDefault();
+      getTournament(tournament.id);
+    });
+    tBody.appendChild(row);
+  }
+}
 
 function displayError(msg) {
   var tournamentDiv = document.getElementById("tournamentData");
@@ -511,19 +732,22 @@ function displayTournamentPage(tournament) {
   updateButton.textContent = "UPDATE";
   tournamentData.appendChild(updateButton);
 
-  updateButton.addEventListener('click', function (e) {
+  updateButton.addEventListener("click", function (e) {
     e.preventDefault();
     displayUpdateTournamentForm(tournament);
   });
+
+  let brUpdate = document.createElement("br");
+  tournamentData.appendChild(brUpdate);
 
   let deleteButton = document.createElement("button");
   deleteButton.textContent = "DELETE";
   tournamentData.appendChild(deleteButton);
 
-  deleteButton.addEventListener('click', function (e) {
+  deleteButton.addEventListener("click", function (e) {
     e.preventDefault();
     deleteTournament(tournament);
-  })
+  });
 }
 
 function displayTournamentsTable(tournaments) {
