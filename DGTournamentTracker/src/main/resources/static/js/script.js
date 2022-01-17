@@ -8,14 +8,6 @@ window.addEventListener("load", function (e) {
 
 function init() {
   console.log("In init()");
-  // document.tournamentLookupForm.tournamentLookupButton.addEventListener('click', function(e) {
-  //   e.preventDefault();
-  //   var tournamentId = document.tournamentLookupForm.tournamentId.value;
-  //   if(!isNaN(tournamentId) && tournamentId > 0) {
-  //     getTournament(tournamentId);
-  //   }
-  // });
-
   let allTournamentsButton = document.getElementById("tournamentsButton");
   allTournamentsButton.addEventListener("click", function (e) {
     e.preventDefault();
@@ -43,8 +35,8 @@ function init() {
     tournamentWinsResults.textContent = "All Tournament Results";
   });
 
-  let getWinsButton = document.getElementById('careerWins');
-  getWinsButton.addEventListener('click', function (e) {
+  let getWinsButton = document.getElementById("careerWins");
+  getWinsButton.addEventListener("click", function (e) {
     e.preventDefault();
     getAllTournamentWins();
     let tournamentWinsResults = document.getElementById("tournamentResults");
@@ -158,16 +150,16 @@ function getAllTournamentDataByYear(year) {
 
 function getAllTournamentWins() {
   let xhr = new XMLHttpRequest();
-  xhr.open('GET', "api/tournaments/stats/wins");
+  xhr.open("GET", "api/tournaments/stats/wins");
   xhr.onreadystatechange = function () {
     if (xhr.readyState === 4) {
-      if(xhr.status === 200) {
+      if (xhr.status === 200) {
         let wins = JSON.parse(xhr.responseText);
         displayWinsTable(wins);
       } else if (xhr.status === 404) {
-        console.error('Faled to get tournaments by Wins');
+        console.error("Faled to get tournaments by Wins");
       } else {
-        displayError('Error retrieving tournaments by Wins: ' + xhr.status);
+        displayError("Error retrieving tournaments by Wins: " + xhr.status);
       }
     }
   };
@@ -243,7 +235,7 @@ function displayNewTournamentForm() {
 
   let nameLabel = document.createElement("label");
   nameLabel.for = "nameField";
-  nameLabel.textContent = "Tournament Name: ";
+  nameLabel.textContent = "Name: ";
   tournamentForm.appendChild(nameLabel);
 
   let nameInput = document.createElement("input");
@@ -311,6 +303,96 @@ function displayNewTournamentForm() {
   let yearBr = document.createElement("br");
   tournamentForm.appendChild(yearBr);
 
+  let playersLabel = document.createElement("label");
+  playersLabel.for = "playersField";
+  playersLabel.textContent = "Players: ";
+  tournamentForm.appendChild(playersLabel);
+
+  let playersInput = document.createElement("input");
+  playersInput.class = "addTournamentFormInputFields";
+  playersInput.type = "text";
+  playersInput.name = "playersField";
+  tournamentForm.appendChild(playersInput);
+
+  let playersBr = document.createElement("br");
+  tournamentForm.appendChild(playersBr);
+
+  let entryFeeLabel = document.createElement("label");
+  entryFeeLabel.for = "entryFeeField";
+  entryFeeLabel.textContent = "Entry Fee: ";
+  tournamentForm.appendChild(entryFeeLabel);
+
+  let entryFeeInput = document.createElement("input");
+  entryFeeInput.class = "addTournamentFormInputFields";
+  entryFeeInput.type = "text";
+  entryFeeInput.name = "entryFeeField";
+  tournamentForm.appendChild(entryFeeInput);
+
+  let entryFeeBr = document.createElement("br");
+  tournamentForm.appendChild(entryFeeBr);
+
+  let placementLabel = document.createElement("label");
+  placementLabel.for = "placementField";
+  placementLabel.textContent = "Placement: ";
+  tournamentForm.appendChild(placementLabel);
+
+  let placementInput = document.createElement("input");
+  placementInput.class = "addTournamentFormInputFields";
+  placementInput.type = "text";
+  placementInput.name = "placementField";
+  tournamentForm.appendChild(placementInput);
+
+  let placementBr = document.createElement("br");
+  tournamentForm.appendChild(placementBr);
+
+  let pointsLabel = document.createElement("label");
+  pointsLabel.for = "pointsField";
+  pointsLabel.textContent = "Points: ";
+  tournamentForm.appendChild(pointsLabel);
+
+  let pointsInput = document.createElement("input");
+  pointsInput.class = "addTournamentFormInputFields";
+  pointsInput.type = "text";
+  pointsInput.name = "pointsField";
+  tournamentForm.appendChild(pointsInput);
+
+  let pointsBr = document.createElement("br");
+  tournamentForm.appendChild(pointsBr);
+
+  let multiDayLabel = document.createElement("label");
+  multiDayLabel.for = "multiDayField";
+  multiDayLabel.textContent = "Multi-Day Event: ";
+  tournamentForm.appendChild(multiDayLabel);
+
+  let multiDayInput = document.createElement("select");
+  multiDayInput.class = "addTournamentFormInputFields";
+  multiDayInput.name = "multiDayField";
+  tournamentForm.appendChild(multiDayInput);
+
+  let optionTrue = document.createElement("option");
+  optionTrue.value = true;
+  optionTrue.textContent = "True";
+  multiDayInput.appendChild(optionTrue);
+
+  let optionFalse = document.createElement("option");
+  optionFalse.value = false;
+  optionFalse.textContent = "False";
+  multiDayInput.appendChild(optionFalse);
+
+  let daysLabel = document.createElement("label");
+  daysLabel.for = "daysField";
+  daysLabel.textContent = "Days: ";
+  tournamentForm.appendChild(daysLabel);
+
+  let daysInput = document.createElement("input");
+  daysInput.class = "addTournamentFormInputFields";
+  daysInput.type = "number";
+  daysInput.name = "daysField";
+  tournamentForm.appendChild(daysInput);
+
+  let daysBr = document.createElement("br");
+  tournamentForm.appendChild(daysBr);
+
   let addTournamentButton = document.createElement("input");
   addTournamentButton.type = "submit";
   addTournamentButton.name = "createTournament";
@@ -326,6 +408,13 @@ function displayNewTournamentForm() {
     newTournament.location = f.locationField.value;
     newTournament.month = f.monthField.value;
     newTournament.year = f.yearField.value;
+    newTournament.multiDay = f.multiDayField.value;
+    newTournament.days = f.daysField.value;
+    newTournament.players = f.playersField.value;
+    newTournament.entryFee = f.entryFeeField.value;
+    newTournament.placement = f.placementField.value;
+    newTournament.points = f.pointsField.value;
+
     createTournament(newTournament);
   });
 }
@@ -344,11 +433,11 @@ function displayUpdateTournamentForm(tournament) {
 
   let nameLabel = document.createElement("label");
   nameLabel.for = "nameField";
-  nameLabel.textContent = "Tournament Name: ";
+  nameLabel.textContent = "Name: ";
   updateTournamentForm.appendChild(nameLabel);
 
   let nameInput = document.createElement("input");
-  nameInput.class = "updateTournamentFormInputFields";
+  nameInput.class = "addTournamentFormInputFields";
   nameInput.type = "text";
   nameInput.name = "nameField";
   nameInput.value = tournament.name;
@@ -363,7 +452,7 @@ function displayUpdateTournamentForm(tournament) {
   updateTournamentForm.appendChild(tierLabel);
 
   let tierInput = document.createElement("input");
-  tierInput.class = "updateTournamentFormInputFields";
+  tierInput.class = "addTournamentFormInputFields";
   tierInput.type = "text";
   tierInput.name = "tierField";
   tierInput.value = tournament.tier;
@@ -378,7 +467,7 @@ function displayUpdateTournamentForm(tournament) {
   updateTournamentForm.appendChild(locationLabel);
 
   let locationInput = document.createElement("input");
-  locationInput.class = "updateTournamentFormInputFields";
+  locationInput.class = "addTournamentFormInputFields";
   locationInput.type = "text";
   locationInput.name = "locationField";
   locationInput.value = tournament.location;
@@ -393,7 +482,7 @@ function displayUpdateTournamentForm(tournament) {
   updateTournamentForm.appendChild(monthLabel);
 
   let monthInput = document.createElement("input");
-  monthInput.class = "updateTournamentFormInputFields";
+  monthInput.class = "addTournamentFormInputFields";
   monthInput.type = "text";
   monthInput.name = "monthField";
   monthInput.value = tournament.month;
@@ -408,7 +497,7 @@ function displayUpdateTournamentForm(tournament) {
   updateTournamentForm.appendChild(yearLabel);
 
   let yearInput = document.createElement("input");
-  yearInput.class = "updateTournamentFormInputFields";
+  yearInput.class = "addTournamentFormInputFields";
   yearInput.type = "text";
   yearInput.name = "yearField";
   yearInput.value = tournament.year;
@@ -416,6 +505,101 @@ function displayUpdateTournamentForm(tournament) {
 
   let yearBr = document.createElement("br");
   updateTournamentForm.appendChild(yearBr);
+
+  let playersLabel = document.createElement("label");
+  playersLabel.for = "playersField";
+  playersLabel.textContent = "Players: ";
+  updateTournamentForm.appendChild(playersLabel);
+
+  let playersInput = document.createElement("input");
+  playersInput.class = "addTournamentFormInputFields";
+  playersInput.type = "text";
+  playersInput.name = "playersField";
+  playersInput.value = tournament.players;
+  updateTournamentForm.appendChild(playersInput);
+
+  let playersBr = document.createElement("br");
+  updateTournamentForm.appendChild(playersBr);
+
+  let entryFeeLabel = document.createElement("label");
+  entryFeeLabel.for = "entryFeeField";
+  entryFeeLabel.textContent = "Entry Fee: ";
+  updateTournamentForm.appendChild(entryFeeLabel);
+
+  let entryFeeInput = document.createElement("input");
+  entryFeeInput.class = "addTournamentFormInputFields";
+  entryFeeInput.type = "text";
+  entryFeeInput.name = "entryFeeField";
+  entryFeeInput.value = tournament.entryFee;
+  updateTournamentForm.appendChild(entryFeeInput);
+
+  let entryFeeBr = document.createElement("br");
+  updateTournamentForm.appendChild(entryFeeBr);
+
+  let placementLabel = document.createElement("label");
+  placementLabel.for = "placementField";
+  placementLabel.textContent = "Placement: ";
+  updateTournamentForm.appendChild(placementLabel);
+
+  let placementInput = document.createElement("input");
+  placementInput.class = "addTournamentFormInputFields";
+  placementInput.type = "text";
+  placementInput.name = "placementField";
+  placementInput.value = tournament.placement;
+  updateTournamentForm.appendChild(placementInput);
+
+  let placementBr = document.createElement("br");
+  updateTournamentForm.appendChild(placementBr);
+
+  let pointsLabel = document.createElement("label");
+  pointsLabel.for = "pointsField";
+  pointsLabel.textContent = "Points: ";
+  updateTournamentForm.appendChild(pointsLabel);
+
+  let pointsInput = document.createElement("input");
+  pointsInput.class = "addTournamentFormInputFields";
+  pointsInput.type = "text";
+  pointsInput.name = "pointsField";
+  pointsInput.value = tournament.points;
+  updateTournamentForm.appendChild(pointsInput);
+
+  let pointsBr = document.createElement("br");
+  updateTournamentForm.appendChild(pointsBr);
+
+  let multiDayLabel = document.createElement("label");
+  multiDayLabel.for = "multiDayField";
+  multiDayLabel.textContent = "Multi-Day Event: ";
+  updateTournamentForm.appendChild(multiDayLabel);
+
+  let multiDayInput = document.createElement("select");
+  multiDayInput.class = "addTournamentFormInputFields";
+  multiDayInput.name = "multiDayField";
+  updateTournamentForm.appendChild(multiDayInput);
+
+  let optionTrue = document.createElement("option");
+  optionTrue.value = true;
+  optionTrue.textContent = "true";
+  multiDayInput.appendChild(optionTrue);
+
+  let optionFalse = document.createElement("option");
+  optionFalse.value = false;
+  optionFalse.textContent = "false";
+  multiDayInput.appendChild(optionFalse);
+
+  let daysLabel = document.createElement("label");
+  daysLabel.for = "daysField";
+  daysLabel.textContent = "Days: ";
+  updateTournamentForm.appendChild(daysLabel);
+
+  let daysInput = document.createElement("input");
+  daysInput.class = "addTournamentFormInputFields";
+  daysInput.type = "number";
+  daysInput.name = "daysField";
+  daysInput.value = tournament.days;
+  updateTournamentForm.appendChild(daysInput);
+
+  let daysBr = document.createElement("br");
+  updateTournamentForm.appendChild(daysBr);
 
   let updateTournamentButton = document.createElement("input");
   updateTournamentButton.type = "submit";
@@ -432,6 +616,12 @@ function displayUpdateTournamentForm(tournament) {
     tournament.location = f.locationField.value;
     tournament.month = f.monthField.value;
     tournament.year = f.yearField.value;
+    tournament.multiDay = f.multiDayField.value;
+    tournament.days = f.daysField.value;
+    tournament.players = f.playersField.value;
+    tournament.entryFee = f.entryFeeField.value;
+    tournament.placement = f.placementField.value;
+    tournament.points = f.pointsField.value;
     updateTournament(tournament);
   });
 }
@@ -591,37 +781,46 @@ function displaydetailedStatsTable(tournaments) {
       top10Count += top10FinishCounter;
     }
   }
-  
+
   let detailedStatsWinsCount = document.createElement("td");
   detailedStatsWinsCount.textContent = detailedStatsWins;
   row.appendChild(detailedStatsWinsCount);
 
-  let detailedStatsWinPercentage = document.createElement('td');
-  detailedStatsWinPercentage.textContent = Math.round((detailedStatsWins/totalTournamentsPlayed.textContent)*100)/100 + "%";
+  let detailedStatsWinPercentage = document.createElement("td");
+  detailedStatsWinPercentage.textContent =
+    Math.round((detailedStatsWins / totalTournamentsPlayed.textContent) * 100) /
+      100 +
+    "%";
   row.appendChild(detailedStatsWinPercentage);
 
-  let detailedStatsPodiumFinishes = document.createElement('td');
+  let detailedStatsPodiumFinishes = document.createElement("td");
   detailedStatsPodiumFinishes.textContent = podiumCount;
   row.appendChild(detailedStatsPodiumFinishes);
 
-  let detailedStatsPodiumPercentage = document.createElement('td');
-  detailedStatsPodiumPercentage.textContent = Math.round((podiumCount/totalTournamentsPlayed.textContent)*100)/100 + "%";
+  let detailedStatsPodiumPercentage = document.createElement("td");
+  detailedStatsPodiumPercentage.textContent =
+    Math.round((podiumCount / totalTournamentsPlayed.textContent) * 100) / 100 +
+    "%";
   row.appendChild(detailedStatsPodiumPercentage);
 
-  let detailedStatsTop5Finishes = document.createElement('td');
+  let detailedStatsTop5Finishes = document.createElement("td");
   detailedStatsTop5Finishes.textContent = top5Count;
   row.appendChild(detailedStatsTop5Finishes);
 
-  let detailedStatsTop5Percentage = document.createElement('td');
-  detailedStatsTop5Percentage.textContent = Math.round((top5Count/totalTournamentsPlayed.textContent)*100)/100 + "%";
+  let detailedStatsTop5Percentage = document.createElement("td");
+  detailedStatsTop5Percentage.textContent =
+    Math.round((top5Count / totalTournamentsPlayed.textContent) * 100) / 100 +
+    "%";
   row.appendChild(detailedStatsTop5Percentage);
 
-  let detailedStatsTop10Finishes = document.createElement('td');
+  let detailedStatsTop10Finishes = document.createElement("td");
   detailedStatsTop10Finishes.textContent = top10Count;
   row.appendChild(detailedStatsTop10Finishes);
 
-  let detailedStatsTop10Percentage = document.createElement('td');
-  detailedStatsTop10Percentage.textContent = Math.round((top10Count/totalTournamentsPlayed.textContent)*100)/100 + "%";
+  let detailedStatsTop10Percentage = document.createElement("td");
+  detailedStatsTop10Percentage.textContent =
+    Math.round((top10Count / totalTournamentsPlayed.textContent) * 100) / 100 +
+    "%";
   row.appendChild(detailedStatsTop10Percentage);
 }
 
@@ -721,9 +920,38 @@ function displayTournamentPage(tournament) {
   date.textContent = "Date: " + tournament.month + "/" + tournament.year;
   tournamentData.appendChild(date);
 
+  let multiDay = document.createElement("li");
+
+  function convertTrueAndFalse(boolean) {
+    if (boolean) {
+      multiDay.textContent = "Multi-Day Event: Yes";
+    } else {
+      multiDay.textContent = "Multi-Day Event: No";
+    }
+  }
+
+  convertTrueAndFalse(multiDay.textContent);
+  tournamentData.appendChild(multiDay);
+
+  let days = document.createElement("li");
+  days.textContent = "Days: " + tournament.days;
+  tournamentData.appendChild(days);
+
   let players = document.createElement("li");
   players.textContent = "Players: " + tournament.players;
   tournamentData.appendChild(players);
+
+  let entryFee = document.createElement("li");
+  entryFee.textContent = "Entry Fee: " + tournament.entryFee;
+  tournamentData.appendChild(entryFee);
+
+  let placement = document.createElement("li");
+  placement.textContent = "Placement: " + tournament.placement;
+  tournamentData.appendChild(placement);
+
+  let points = document.createElement("li");
+  points.textContent = "Points: " + tournament.points;
+  tournamentData.appendChild(points);
 
   let br = document.createElement("br");
   tournamentData.appendChild(br);
