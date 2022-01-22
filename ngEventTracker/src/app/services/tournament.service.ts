@@ -73,9 +73,19 @@ export class TournamentService {
     )
   }
 
-  // delete(tournamnetId: number): Obvservable<void> {
-  //   return this.http.delete<void>(this.url)
-  // }
+  delete(tournamentId: number): Observable<void> {
+    return this.http.delete<void>(this.url + "/" + tournamentId).pipe(
+      catchError( (problem: any) => {
+        console.error('TodoService.delete(): error deleting tournament: ');
+        console.error(problem);
+          return throwError(
+          () => new Error(
+            'TournamentService.delete(): error deleting tournament'
+          )
+        );
+      })
+    )
+  }
 
 
 

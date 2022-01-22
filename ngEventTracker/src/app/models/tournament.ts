@@ -1,5 +1,5 @@
 export class Tournament {
-  id: number | undefined;
+  id: number;
   name: string | undefined;
   tier: string | undefined;
   location: string | undefined;

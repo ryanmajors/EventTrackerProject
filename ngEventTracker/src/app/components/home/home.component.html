@@ -69,7 +69,7 @@
     <li>Points: {{selected.points}}</li>
   </ul>
   <button (click)="setEditTournament()">Update</button>
-  <button>Delete</button>
+  <button (click)="deleteTournament(selected.id)" (click)="selected=null" >Delete</button>
 </div>
 
 <!-- Tournament Results - Want to have tournament results hide when new form or single tournament is selected -->

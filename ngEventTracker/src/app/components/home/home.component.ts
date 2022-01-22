@@ -19,6 +19,7 @@ export class HomeComponent implements OnInit {
   tournamentCount: number | string = 0;
   formSelected: boolean = false;
   updateFormSelected: boolean = true;
+  tournamentDeleted: boolean = false;
 
 
   years = [
@@ -54,7 +55,7 @@ export class HomeComponent implements OnInit {
         this.router.navigateByUrl('invalidTodoId');
       }
     }
-    this.loadTournaments();
+    this.reload();
   }
 
   displayNumTournaments() {
@@ -69,7 +70,7 @@ export class HomeComponent implements OnInit {
     return this.statPipe.getWins(this.tournaments, this.selectedYear);
   }
 
-  loadTournaments() {
+  reload() {
     this.tService.index().subscribe(
       tournament => this.tournaments = tournament,
 
@@ -85,7 +86,7 @@ export class HomeComponent implements OnInit {
       this.tService.create(tournament).subscribe(
         tournament => {
           this.newTournament = new Tournament();
-          this.loadTournaments();
+          this.reload();
         },
         fail => {
           console.error('Error creating tournament');
@@ -102,11 +103,22 @@ export class HomeComponent implements OnInit {
         if(goToDetails) {
           this.selected = t;
         }
-        this.loadTournaments();
+        this.reload();
       },
       error: (fail) => {
         console.error('TournamentComponent.updateTournament(): error on update');
         console.error(fail);
+      }
+    })
+  }
+
+  deleteTournament(tournamentId: number) {
+    this.tService.delete(tournamentId).subscribe({
+      next: () => {
+        this.reload();
+      },
+      error: (fail) => {
+        console.error('TournamentComponent.deleteTournament(): error deleting tournament.');
       }
     })
   }
