@@ -8,14 +8,14 @@ import { HomeComponent } from './components/home/home.component';
 import { HttpClientModule } from '@angular/common/http'
 import { TournamentService } from './services/tournament.service';
 import { TournamentYearPipe } from './pipes/tournament-year.pipe';
-import { TournamentCountPipe } from './pipes/tournament-count.pipe';
+import { TournamentStatPipe } from './pipes/tournament-stat.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     TournamentYearPipe,
-    TournamentCountPipe
+    TournamentStatPipe
   ],
   imports: [
     BrowserModule,
@@ -26,7 +26,7 @@ import { TournamentCountPipe } from './pipes/tournament-count.pipe';
   providers: [
     TournamentService,
     TournamentYearPipe,
-    TournamentCountPipe
+    TournamentStatPipe
 
   ],
   bootstrap: [AppComponent]

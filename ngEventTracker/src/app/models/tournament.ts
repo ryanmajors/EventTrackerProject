@@ -3,14 +3,14 @@ export class Tournament {
   name: string | undefined;
   tier: string | undefined;
   location: string | undefined;
-  month: number | undefined;
-  year: number | undefined;
+  month: number;
+  year: number;
   multiDay: boolean | undefined;
-  days: number | undefined;
-  players: number | undefined;
-  entryFee: number | undefined;
-  placement: number | undefined;
-  points: number | undefined;
+  days: number;
+  players: number;
+  entryFee: number;
+  placement: number;
+  points: number;
   hidden: boolean | undefined;
 
   constructor(
@@ -18,14 +18,14 @@ export class Tournament {
     name?: string,
     tier?: string,
     location?: string,
-    month?: number,
-    year?: number,
+    month: number = 1,
+    year: number = 2022,
     multiDay?: boolean,
-    days?: number,
-    players?: number,
-    entryFee?: number,
-    placement?: number,
-    points?: number,
+    days: number = 1,
+    players: number = 0,
+    entryFee: number = 0,
+    placement: number = 0,
+    points: number = 0,
     hidden: boolean = false
     ) {
       this.id = id;

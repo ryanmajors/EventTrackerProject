@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Tournament } from 'src/app/models/tournament';
-import { TournamentCountPipe } from 'src/app/pipes/tournament-count.pipe';
+import { TournamentStatPipe } from 'src/app/pipes/tournament-stat.pipe';
 import { TournamentService } from 'src/app/services/tournament.service';
 
 @Component({
@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private tService: TournamentService,
-    private countPipe: TournamentCountPipe
+    private statPipe: TournamentStatPipe
   ) { };
 
   ngOnInit(): void {
@@ -36,7 +36,15 @@ export class HomeComponent implements OnInit {
   }
 
   displayNumTournaments() {
-    return this.countPipe.transform(this.tournaments, this.selectedYear);
+    return this.statPipe.transform(this.tournaments, this.selectedYear);
+  }
+
+  displayNumPoints() {
+    return this.statPipe.getPoints(this.tournaments, this.selectedYear);
+  }
+
+  displayNumWins() {
+    return this.statPipe.getWins(this.tournaments, this.selectedYear);
   }
 
   loadTournaments() {
