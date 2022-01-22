@@ -1,1 +1,144 @@
-<p>home works!</p>
+<div>
+  <h1>DG Tournament Tracker</h1>
+  <h3>Ryan Majors #104126</h3>
+</div>
+<hr />
+<!-- Player info -->
+<div id="playerInfo">
+  <h3>Player Info</h3>
+  <ul>
+    <li class="playerInfoDetails" name="playerLocation">
+      Location: Arvada, Colorado, United States
+    </li>
+    <li class="playerInfoDetails" name=":playerClassification">
+      Classification: Amateur
+    </li>
+    <li class="playerInfoDetails" name="playerJoinYear">Member Since: 2018</li>
+    <li class="playerInfoDetails" name="playerStatus">
+      Status: Current (Expires: 12/31/2022)
+    </li>
+  </ul>
+</div>
+
+<!-- Player Stats and Filters / Stats Table -->
+<div id="playerStatistics">
+  <h3 name="playerStatsTitle">Player Statistics</h3>
+  <div name="yearSelector">
+    <span (click)="selectedYear = year" (click)="selected=null" *ngFor="let year of years">
+      {{ year }} |
+    </span>
+  </div>
+  <br />
+  <button id="detailedStats">Detailed Stats</button>
+  <button id="careerWins">Career Wins</button>
+  <div id="statData">
+    <h3 id="statDataTitle">{{ selectedYear }} Season Totals</h3>
+    <div name="statDataTable">
+      <table>
+        <thead>
+          <tr>
+            <th>Tournaments</th>
+            <th>Points</th>
+            <th>Wins</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{displayNumTournaments()}}</td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<hr />
+
+<!-- Single Tournament Details -->
+<div id="tournamentDetails" *ngIf="selected">
+  <h4>{{selected.name}}</h4>
+  <ul>
+    <li>Tier: {{selected.tier}}</li>
+    <li>Date: {{selected.month}}/{{selected.year}} </li>
+    <li>Location: {{selected.location}}</li>
+    <li>Days: {{selected.days}} - Entry fee: ${{selected.entryFee}}</li>
+    <li>Players: {{selected.players}}</li>
+    <li>Placed: {{selected.placement}}</li>
+    <li>Points: {{selected.points}}</li>
+  </ul>
+  <button>Update</button>
+  <button>Delete</button>
+</div>
+
+<!-- Tournament Results - Want to have tournament results hide when new form or single tournament is selected -->
+<div id="tournamentResults" *ngIf="!selected">
+  <h3 name="tournamentResultsTitle">{{ selectedYear }} Tournament Results</h3>
+  <div name="tournamentResultsTable">
+    <table>
+      <thead>
+        <tr>
+          <th>Place</th>
+          <th>Points</th>
+          <th>Tournament</th>
+          <th>Tier</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let tournament of tournaments | tournamentYear: selectedYear" (click)="selected=tournament">
+          <td>{{ tournament.placement }}</td>
+          <td>{{ tournament.points }}</td>
+          <td>{{ tournament.name }}</td>
+          <td>{{ tournament.tier }}</td>
+          <td>{{ tournament.month }}/{{ tournament.year }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <br />
+  </div>
+</div>
+
+<!-- Add New Tournament Form -->
+<div id="addNewTournamentForm" *ngIf="!selected">
+  <h3>New Tournament Form</h3>
+  <form>
+    <label for="">Tournament Name:</label>
+    <input type="text" name="name">
+    <br>
+    <label for="">Tier:</label>
+    <input type="text" name="tier">
+    <br>
+    <label for="">Location</label>
+    <input type="text" name="location">
+    <br>
+    <label for="">Month:</label>
+    <input type="text" name="month">
+    <br>
+    <label for="">Year:</label>
+    <input type="text" name="year">
+    <br>
+    <label for="">Players:</label>
+    <input type="text" name="players">
+    <br>
+    <label for="">EntryFee</label>
+    <input type="text" name="entryfee">
+    <br>
+    <label for="">Placement</label>
+    <input type="text" name="placement">
+    <br>
+    <label for="">Points</label>
+    <input type="text" name="points">
+    <br>
+    <label for="">Multi-Day</label>
+    <input type="checkbox" name="multiday">
+    <label for="">Days:</label>
+    <input type="text" name="days">
+    <br>
+    <input type="submit" value="Submit">
+  </form>
+</div>
+
+
+
