@@ -17,6 +17,8 @@ export class HomeComponent implements OnInit {
   tournaments: Tournament[] = [];
   selectedYear: number | string = 'All';
   tournamentCount: number | string = 0;
+  formSelected: boolean = false;
+  updateFormSelected: boolean = true;
 
   years = [
     'All',
@@ -55,4 +57,21 @@ export class HomeComponent implements OnInit {
     );
   }
 
+  setEditTournament(){
+    this.editTournament = Object.assign({}, this.selected);
+  }
+
+  addTournament(tournament: Tournament) {
+      this.tService.create(tournament).subscribe(
+        tournament => {
+          this.newTournament = new Tournament();
+          this.loadTournaments();
+        },
+        fail => {
+          console.error('Error creating tournament');
+          console.error(fail);
+
+        }
+      );
+  }
 }

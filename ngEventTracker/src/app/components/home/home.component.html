@@ -24,7 +24,7 @@
 <div id="playerStatistics">
   <h3 name="playerStatsTitle">Player Statistics</h3>
   <div name="yearSelector">
-    <span (click)="selectedYear = year" (click)="selected=null" *ngFor="let year of years">
+    <span (click)="selectedYear = year" (click)="selected=null" (click)="formSelected=false" *ngFor="let year of years">
       {{ year }} |
     </span>
   </div>
@@ -57,7 +57,7 @@
 <hr />
 
 <!-- Single Tournament Details -->
-<div id="tournamentDetails" *ngIf="selected">
+<div id="tournamentDetails" *ngIf="selected && !formSelected && !editTournament">
   <h4>{{selected.name}}</h4>
   <ul>
     <li>Tier: {{selected.tier}}</li>
@@ -68,12 +68,12 @@
     <li>Placed: {{selected.placement}}</li>
     <li>Points: {{selected.points}}</li>
   </ul>
-  <button>Update</button>
+  <button (click)="setEditTournament()">Update</button>
   <button>Delete</button>
 </div>
 
 <!-- Tournament Results - Want to have tournament results hide when new form or single tournament is selected -->
-<div id="tournamentResults" *ngIf="!selected">
+<div id="tournamentResults" *ngIf="!selected && !formSelected !updateFormSelected">
   <h3 name="tournamentResultsTitle">{{ selectedYear }} Tournament Results</h3>
   <div name="tournamentResultsTable">
     <table>
@@ -100,15 +100,56 @@
   </div>
 </div>
 
+<button (click)="formSelected = true" *ngIf="!formSelected && !selected">Add Tournamnet</button>
+
 <!-- Add New Tournament Form -->
-<div id="addNewTournamentForm" *ngIf="!selected">
+<div id="addNewTournamentForm" *ngIf="!selected && formSelected">
   <h3>New Tournament Form</h3>
   <form>
     <label for="">Tournament Name:</label>
-    <input type="text" name="name">
+    <input type="text" name="name" [(ngModel)]="newTournament.name">
     <br>
     <label for="">Tier:</label>
-    <input type="text" name="tier">
+    <input type="text" name="tier" [(ngModel)]="newTournament.tier">
+    <br>
+    <label for="">Location</label>
+    <input type="text" name="location" [(ngModel)]="newTournament.location">
+    <br>
+    <label for="">Month:</label>
+    <input type="text" name="month" [(ngModel)]="newTournament.month">
+    <br>
+    <label for="">Year:</label>
+    <input type="text" name="year" [(ngModel)]="newTournament.year">
+    <br>
+    <label for="">Players:</label>
+    <input type="text" name="players" [(ngModel)]="newTournament.players">
+    <br>
+    <label for="">EntryFee</label>
+    <input type="text" name="entryfee" [(ngModel)]="newTournament.entryFee">
+    <br>
+    <label for="">Placement</label>
+    <input type="text" name="placement" [(ngModel)]="newTournament.placement">
+    <br>
+    <label for="">Points</label>
+    <input type="text" name="points" [(ngModel)]="newTournament.points">
+    <br>
+    <label for="">Multi-Day</label>
+    <input type="checkbox" name="multiday" [(ngModel)]="newTournament.multiDay">
+    <label for="">Days:</label>
+    <input type="text" name="days" [(ngModel)]="newTournament.days">
+    <br>
+    <input type="submit" (click)="addTournament(newTournament)" value="Submit" (click)="formSelected = false;">
+  </form>
+</div>
+
+<div id="updateTournamentForm" *ngIf="editTournament && updateFormSelected">
+  <h3>Update Tournament Form</h3>
+  <form>
+    <label for="">Tournament Name:</label>
+    <input type="text" name="name" [(ngModel)] = "editTournament.name">
+    <br>
+    <label for="">Tier:</label>
+    <input type="text" name="tier" value="">
     <br>
     <label for="">Location</label>
     <input type="text" name="location">

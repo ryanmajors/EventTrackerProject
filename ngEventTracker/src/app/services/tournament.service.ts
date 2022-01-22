@@ -32,7 +32,19 @@ export class TournamentService {
     );
   }
 
-
+  create(tournament: Tournament): Observable<Tournament> {
+    tournament.hidden = false;
+    return this.http.post<Tournament>(this.url, tournament).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error(
+            "TournamentService.create(): error creating Tournament"
+          )
+        );
+      })
+    )
+  }
 
 
 
