@@ -19,7 +19,7 @@ export class Tournament {
     tier?: string,
     location?: string,
     month: number = 1,
-    year: number = 2022,
+    year: number = 2021,
     multiDay?: boolean,
     days: number = 1,
     players: number = 0,

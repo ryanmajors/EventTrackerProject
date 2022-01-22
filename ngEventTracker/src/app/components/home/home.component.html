@@ -24,7 +24,7 @@
 <div id="playerStatistics">
   <h3 name="playerStatsTitle">Player Statistics</h3>
   <div name="yearSelector">
-    <span (click)="selectedYear = year" (click)="selected=null" (click)="formSelected=false" *ngFor="let year of years">
+    <span (click)="selectedYear = year" (click)="selected=null" (click)="formSelected=false" (click)="updateFormSelected=false" *ngFor="let year of years">
       {{ year }} |
     </span>
   </div>
@@ -149,35 +149,35 @@
     <input type="text" name="name" [(ngModel)] = "editTournament.name">
     <br>
     <label for="">Tier:</label>
-    <input type="text" name="tier" value="">
+    <input type="text" name="tier" [(ngModel)] = "editTournament.tier">
     <br>
     <label for="">Location</label>
-    <input type="text" name="location">
+    <input type="text" name="location" [(ngModel)] = "editTournament.location">
     <br>
     <label for="">Month:</label>
-    <input type="text" name="month">
+    <input type="text" name="month" [(ngModel)] = "editTournament.month">
     <br>
     <label for="">Year:</label>
-    <input type="text" name="year">
+    <input type="text" name="year" [(ngModel)] = "editTournament.year">
     <br>
     <label for="">Players:</label>
-    <input type="text" name="players">
+    <input type="text" name="players" [(ngModel)] = "editTournament.players">
     <br>
     <label for="">EntryFee</label>
-    <input type="text" name="entryfee">
+    <input type="text" name="entryfee" [(ngModel)] = "editTournament.entryFee">
     <br>
     <label for="">Placement</label>
-    <input type="text" name="placement">
+    <input type="text" name="placement" [(ngModel)] = "editTournament.placement">
     <br>
     <label for="">Points</label>
-    <input type="text" name="points">
+    <input type="text" name="points" [(ngModel)] = "editTournament.points">
     <br>
     <label for="">Multi-Day</label>
-    <input type="checkbox" name="multiday">
+    <input type="checkbox" name="multiday" [(ngModel)] = "editTournament.multiDay">
     <label for="">Days:</label>
-    <input type="text" name="days">
+    <input type="text" name="days" [(ngModel)] = "editTournament.days">
     <br>
-    <input type="submit" value="Submit">
+    <input type="submit" (click)="updateTournament(editTournament)" value="Submit">
   </form>
 </div>
 

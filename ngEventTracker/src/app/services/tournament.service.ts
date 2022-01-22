@@ -32,6 +32,20 @@ export class TournamentService {
     );
   }
 
+  show(tournamentId: number): Observable<Tournament> {
+    return this.http.get<Tournament>(this.url + "/" + tournamentId,).pipe(
+      catchError( (error: any) => {
+        console.error("TournamentService.show(): error finding tournament:");
+        console.error(error);
+        return throwError(
+          () => new Error(
+            "TournamentService.show(): error finding tournament: " + error
+          )
+        )
+      })
+    );
+  }
+
   create(tournament: Tournament): Observable<Tournament> {
     tournament.hidden = false;
     return this.http.post<Tournament>(this.url, tournament).pipe(
@@ -45,6 +59,23 @@ export class TournamentService {
       })
     )
   }
+
+  update(tournament: Tournament): Observable<Tournament> {
+    return this.http.put<Tournament>(this.url + "/" + tournament.id, tournament).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error(
+            'TournamentService.update(); error updating tournament'
+          )
+        );
+      })
+    )
+  }
+
+  // delete(tournamnetId: number): Obvservable<void> {
+  //   return this.http.delete<void>(this.url)
+  // }
 
 
 

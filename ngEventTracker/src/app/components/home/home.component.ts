@@ -20,6 +20,7 @@ export class HomeComponent implements OnInit {
   formSelected: boolean = false;
   updateFormSelected: boolean = true;
 
+
   years = [
     'All',
     2021,
@@ -30,10 +31,29 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private tService: TournamentService,
-    private statPipe: TournamentStatPipe
+    private statPipe: TournamentStatPipe,
+    private route: ActivatedRoute,
+    private router: Router
   ) { };
 
   ngOnInit(): void {
+    let tournamentIdStr = this.route.snapshot.paramMap.get('id');
+    if (!this.selected && tournamentIdStr) {
+      let tournamentId = Number.parseInt(tournamentIdStr);
+      if ( !isNaN(tournamentId)) {
+        this.tService.show(tournamentId).subscribe({
+          next: (tournament: Tournament | null) => {
+            this.selected = tournament;
+          },
+          error: (fail: string) => {
+            console.error('TodoListComponent.ngOnInit(): invalid tournamentId' + fail);
+            this.router.navigateByUrl("tournamentnotfound")
+          }
+        });
+      } else {
+        this.router.navigateByUrl('invalidTodoId');
+      }
+    }
     this.loadTournaments();
   }
 
@@ -73,5 +93,21 @@ export class HomeComponent implements OnInit {
 
         }
       );
+  }
+
+  updateTournament(tournament: Tournament, goToDetails = true): void {
+    this.tService.update(tournament).subscribe({
+      next: (t) => {
+        this.editTournament = null;
+        if(goToDetails) {
+          this.selected = t;
+        }
+        this.loadTournaments();
+      },
+      error: (fail) => {
+        console.error('TournamentComponent.updateTournament(): error on update');
+        console.error(fail);
+      }
+    })
   }
 }
