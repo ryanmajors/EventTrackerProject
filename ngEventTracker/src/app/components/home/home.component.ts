@@ -17,9 +17,8 @@ export class HomeComponent implements OnInit {
   tournaments: Tournament[] = [];
   selectedYear: number | string = 'All';
   tournamentCount: number | string = 0;
-  formSelected: boolean = false;
-  updateFormSelected: boolean = true;
-  tournamentDeleted: boolean = false;
+  addTournamentFormSelected: boolean = false;
+  updateFormSelected: boolean = false;
 
 
   years = [
@@ -38,23 +37,23 @@ export class HomeComponent implements OnInit {
   ) { };
 
   ngOnInit(): void {
-    let tournamentIdStr = this.route.snapshot.paramMap.get('id');
-    if (!this.selected && tournamentIdStr) {
-      let tournamentId = Number.parseInt(tournamentIdStr);
-      if ( !isNaN(tournamentId)) {
-        this.tService.show(tournamentId).subscribe({
-          next: (tournament: Tournament | null) => {
-            this.selected = tournament;
-          },
-          error: (fail: string) => {
-            console.error('TodoListComponent.ngOnInit(): invalid tournamentId' + fail);
-            this.router.navigateByUrl("tournamentnotfound")
-          }
-        });
-      } else {
-        this.router.navigateByUrl('invalidTodoId');
-      }
-    }
+    // let tournamentIdStr = this.route.snapshot.paramMap.get('id');
+    // if (!this.selected && tournamentIdStr) {
+    //   let tournamentId = Number.parseInt(tournamentIdStr);
+    //   if ( !isNaN(tournamentId)) {
+    //     this.tService.show(tournamentId).subscribe({
+    //       next: (tournament: Tournament | null) => {
+    //         this.selected = tournament;
+    //       },
+    //       error: (fail: string) => {
+    //         console.error('TodoListComponent.ngOnInit(): invalid tournamentId' + fail);
+    //         this.router.navigateByUrl("tournamentnotfound")
+    //       }
+    //     });
+    //   } else {
+    //     this.router.navigateByUrl('invalidTodoId');
+    //   }
+    // }
     this.reload();
   }
 

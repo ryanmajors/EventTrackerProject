@@ -7,15 +7,12 @@ import { Tournament } from '../models/tournament';
 export class TournamentStatPipe implements PipeTransform {
 
   transform(tournaments: Tournament[], tournamentYear: number | string): number {
-    let tournamentCount = tournaments.length;
-    let filteredTournaments: Tournament[] = [];
-    if(tournamentYear === 'All') {
-      return tournamentCount;
-    };
+    let tournamentCount = 0;
     tournaments.forEach(tournament => {
-      if(tournament.year === tournamentYear) {
-        filteredTournaments.push(tournament);
-        tournamentCount += filteredTournaments.length;
+      if(tournamentYear === tournament.year) {
+          tournamentCount +=1;
+      } else if (tournamentYear === 'All'){
+          tournamentCount +=1;
       }
     });
 
@@ -48,7 +45,7 @@ export class TournamentStatPipe implements PipeTransform {
         if(tournament.placement === 1) {
           tournamentWinCount +=1;
         }
-      } else if (tournamentYear === 'All') {
+      } else if (tournamentYear === 'All'){
         if(tournament.placement === 1 ) {
           tournamentWinCount +=1;
         }

@@ -24,13 +24,13 @@
 <div id="playerStatistics">
   <h3 name="playerStatsTitle">Player Statistics</h3>
   <div name="yearSelector">
-    <span (click)="selectedYear = year" (click)="selected=null" (click)="formSelected=false" (click)="updateFormSelected=false" *ngFor="let year of years">
+    <span (click)="selectedYear = year" (click)="selected=null" (click)="addTournamentFormSelected=false" (click)="updateFormSelected=false" *ngFor="let year of years">
       {{ year }} |
     </span>
   </div>
   <br />
-  <button id="detailedStats">Detailed Stats</button>
-  <button id="careerWins">Career Wins</button>
+  <!-- <button id="detailedStats">Detailed Stats</button>
+  <button id="careerWins">Career Wins</button> -->
   <div id="statData">
     <h3 id="statDataTitle">{{ selectedYear }} Season Totals</h3>
     <div name="statDataTable">
@@ -57,7 +57,7 @@
 <hr />
 
 <!-- Single Tournament Details -->
-<div id="tournamentDetails" *ngIf="selected && !formSelected && !editTournament">
+<div id="tournamentDetails" *ngIf="selected && !addTournamentFormSelected && !editTournament">
   <h4>{{selected.name}}</h4>
   <ul>
     <li>Tier: {{selected.tier}}</li>
@@ -69,11 +69,11 @@
     <li>Points: {{selected.points}}</li>
   </ul>
   <button (click)="setEditTournament()">Update</button>
-  <button (click)="deleteTournament(selected.id)" (click)="selected=null" >Delete</button>
+  <button (click)="deleteTournament(selected.id)" (click)="selected=null">Delete</button>
 </div>
 
 <!-- Tournament Results - Want to have tournament results hide when new form or single tournament is selected -->
-<div id="tournamentResults" *ngIf="!selected && !formSelected !updateFormSelected">
+<div id="tournamentResults" *ngIf="!selected && !addTournamentFormSelected !updateFormSelected">
   <h3 name="tournamentResultsTitle">{{ selectedYear }} Tournament Results</h3>
   <div name="tournamentResultsTable">
     <table>
@@ -100,10 +100,10 @@
   </div>
 </div>
 
-<button (click)="formSelected = true" *ngIf="!formSelected && !selected">Add Tournamnet</button>
+<button (click)="addTournamentFormSelected = true" *ngIf="!addTournamentFormSelected && !selected">Add Tournamnet</button>
 
 <!-- Add New Tournament Form -->
-<div id="addNewTournamentForm" *ngIf="!selected && formSelected">
+<div id="addNewTournamentForm" *ngIf="!selected && addTournamentFormSelected">
   <h3>New Tournament Form</h3>
   <form>
     <label for="">Tournament Name:</label>
@@ -138,7 +138,7 @@
     <label for="">Days:</label>
     <input type="text" name="days" [(ngModel)]="newTournament.days">
     <br>
-    <input type="submit" (click)="addTournament(newTournament)" value="Submit" (click)="formSelected = false;">
+    <input type="submit" (click)="addTournament(newTournament)" value="Submit" (click)="addTournamentFormSelected = false;">
   </form>
 </div>
 
@@ -177,7 +177,8 @@
     <label for="">Days:</label>
     <input type="text" name="days" [(ngModel)] = "editTournament.days">
     <br>
-    <input type="submit" (click)="updateTournament(editTournament)" value="Submit">
+    <input type="submit" (click)="updateTournament(editTournament)" (click)="editTournament=null" value="Submit">
+    <button (click)="editTournament=null">Cancel</button>
   </form>
 </div>
 
