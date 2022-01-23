@@ -1,3 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
-/* @import "~bootstrap/dist/css/bootstrap.min.css"; */
+@import "~bootstrap/dist/css/bootstrap.min.css";
 
+body {
+  background-image: url("https://wallpapers.com/images/high/textured-green-cotton-fabric-092hxvkcvkdjq7x3.jpg");
+  height: 100vh;
+}

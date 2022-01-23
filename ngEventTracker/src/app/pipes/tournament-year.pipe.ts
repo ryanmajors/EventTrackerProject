@@ -10,6 +10,13 @@ export class TournamentYearPipe implements PipeTransform {
     let results: Tournament[] = [];
     if(tournamentYear === "All") {
       return tournaments;
+    } else if(tournamentYear === "Wins") {
+      tournaments.forEach(tournament => {
+        if(tournament.placement === 1) {
+          results.push(tournament);
+        }
+        return results;
+      });
     }
     tournaments.forEach(tournament => {
       if(tournament.year === tournamentYear) {

@@ -19,6 +19,7 @@ export class HomeComponent implements OnInit {
   tournamentCount: number | string = 0;
   addTournamentFormSelected: boolean = false;
   updateFormSelected: boolean = false;
+  basicStatsOn: boolean = true;
 
 
   years = [
@@ -26,7 +27,8 @@ export class HomeComponent implements OnInit {
     2021,
     2020,
     2019,
-    2018
+    2018,
+    'Wins'
   ]
 
   constructor(
@@ -51,7 +53,7 @@ export class HomeComponent implements OnInit {
     //       }
     //     });
     //   } else {
-    //     this.router.navigateByUrl('invalidTodoId');
+    //     this.router.navigateByUrl('invalidTournament');
     //   }
     // }
     this.reload();
@@ -65,9 +67,42 @@ export class HomeComponent implements OnInit {
     return this.statPipe.getPoints(this.tournaments, this.selectedYear);
   }
 
-  displayNumWins() {
-    return this.statPipe.getWins(this.tournaments, this.selectedYear);
+  displayPointsPerTournament() {
+    return this.statPipe.getPointsPerTournament(this.tournaments, this.selectedYear);
   }
+
+  displayNumWins() {
+    return this.statPipe.getNumWins(this.tournaments, this.selectedYear);
+  }
+
+  displayWinPercentage() {
+    return this.statPipe.getWinPercentage(this.tournaments, this.selectedYear);
+  }
+
+  displayNumPodiumFinishes() {
+    return this.statPipe.getNumPodiumFinishes(this.tournaments, this.selectedYear);
+  }
+
+  displayPodiumPercentage() {
+    return this.statPipe.getPodiumPercentage(this.tournaments, this.selectedYear);
+  }
+
+  displayNumTop5Finishes() {
+    return this.statPipe.getNumTop5Finishes(this.tournaments, this.selectedYear);
+  }
+
+  displayTop5Percentage() {
+    return this.statPipe.getTop5Percentage(this.tournaments, this.selectedYear);
+  }
+
+  displayNumTop10Finishes() {
+    return this.statPipe.getNumTop10Finishes(this.tournaments, this.selectedYear);
+  }
+
+  displayTop10Percentage() {
+    return this.statPipe.getTop10Percentage(this.tournaments, this.selectedYear);
+  }
+
 
   reload() {
     this.tService.index().subscribe(

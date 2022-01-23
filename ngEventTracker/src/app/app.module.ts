@@ -27,7 +27,6 @@ import { TournamentStatPipe } from './pipes/tournament-stat.pipe';
     TournamentService,
     TournamentYearPipe,
     TournamentStatPipe
-
   ],
   bootstrap: [AppComponent]
 })
