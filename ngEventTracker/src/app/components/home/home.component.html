@@ -1,12 +1,8 @@
 <div class="container">
   <app-navbar></app-navbar>
   <br />
-  <br />
-  <br />
-  <br />
-  <h1>DG Tournament Tracker</h1>
-  <br />
-  <br />
+  <h1>Personal Tracker</h1>
+  <h3>for</h3>
   <!-- Player info -->
   <div class="playerInfo">
     <h2>Ryan Majors #104126</h2>
@@ -29,6 +25,8 @@
   <br />
   <br />
   <br />
+  <br>
+  <br>
 
   <!-- Player Stats and Filters / Stats Table -->
   <div class="playerStatistics">
@@ -130,9 +128,9 @@
     <h4>{{ selected.name }}</h4>
     <ul>
       <br>
-      <li class="tournamentDetails">Tier: {{ selected.tier }}</li>
       <li class="tournamentDetails">
         Date: {{ selected.month }}/{{ selected.year }} - Location: {{ selected.location }}</li>
+        <li class="tournamentDetails">Tier: {{ selected.tier }}</li>
       <li class="tournamentDetails">
         Days: {{ selected.days }} - Entry fee: ${{ selected.entryFee }}
       </li>

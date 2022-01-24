@@ -1,6 +1,7 @@
 .footerDiv {
   height: 50px;
-  background-color: #009879;
-  margin-top: 50px;
-  color: #009879;
+  background-color: #62b1a1;
+  margin-top: 30px;
+  color: #62b1a1;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
 }

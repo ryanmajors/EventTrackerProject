@@ -3,13 +3,19 @@
 /* Style the navbar */
 .topnav {
   overflow: hidden;
-  background-color: #adc0ba;
-  position: fixed;
+  background-color: rgb(159, 196, 188);
+  position: sticky;
   top: 0;
-  width: 85%;
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;
-  box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.4);
+
+}
+
+.topnav a.navTitle {
+  color: aliceblue;
+  font-size: 18px;
+  width: 55%;
 }
 
 /* Navbar links */
@@ -24,15 +30,20 @@
   position: relative;
 }
 
-/* Navbar links on mouse-over */
+/* Navbar links on mouse-over
 .topnav a:hover {
   background-color: #ddd;
   color: black;
-}
+} */
 
 /* Active/current link */
 .topnav a.active {
   background-color: #009879;
+  color: white;
+}
+
+.topnav a.active:hover {
+  background-color: #017961;
   color: white;
 }
 
