@@ -9,13 +9,17 @@ import { HttpClientModule } from '@angular/common/http'
 import { TournamentService } from './services/tournament.service';
 import { TournamentYearPipe } from './pipes/tournament-year.pipe';
 import { TournamentStatPipe } from './pipes/tournament-stat.pipe';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     TournamentYearPipe,
-    TournamentStatPipe
+    TournamentStatPipe,
+    NavbarComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

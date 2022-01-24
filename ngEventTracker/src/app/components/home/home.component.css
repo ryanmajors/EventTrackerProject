@@ -1,9 +1,10 @@
 .container{
-  background-color: rgb(234, 240, 239);
-  text-align: center;
+  background-color: #eaf0ef;
   align-content: center;
+  text-align: center;
   width: 85%;
   padding: 0;
+
 }
 
 .playerInfoDetails{
@@ -16,33 +17,209 @@
 }
 
 .playerInfo {
-  background-color: rgb(224, 233, 233);
-  border: 3px solid rgb(108, 179, 175);
+  /* background-color: rgba(214, 255, 253, 0.623); */
+  border: 3px solid #009879;
+  color: #003f32;
+  padding-top: 3%;
+  padding-bottom: 3%;
   margin: auto;
-  width: 80%;
+  width: 60%;
+  box-shadow: 0 0 20px rgba(5, 37, 30, 0.2);
   border-radius: 20px;
+}
+
+.yearContainer {
+  color: #009879;
 }
 .yearContainer:hover {
   cursor: pointer;
-  color: darkblue;
+  color: #003f32;
 }
 
-.tournamentTableData {
-  cursor: pointer;
+.tournamentResultsTable {
+  width: 93%;
+  margin-left: 3.5%;
+}
+
+.detailedStatDataTable {
+  width: 93%;
+  margin-left: 3.5%;
+}
+
+.basicStatDataTable {
+  width: 93%;
+  margin-left: 3.5%;
+}
+
+h1 {
+  font-size: 6em;
+  color: rgb(32, 110, 84);
 }
 
 h5 {
-  color: darkblue;
+  color: rgb(32, 110, 84);
 }
 
 h3 {
   color: rgb(32, 110, 84);
 }
 
-.playerStatsContainer {
-  margin-left: 2%;
+h2 {
+  color: rgb(32, 110, 84);
 }
 
-.titleContainer {
-  background-color: rgb(108, 179, 175);
+.toggleStatButton1 {
+  margin-top: 7px;
+  padding: 6px;
+  margin-right: 5px;
+  background: #009879;
+  color: white;
+  font-size: 17px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 150px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.toggleStatButton1:hover {
+  background: #017961;
+}
+
+.toggleStatButton2 {
+  margin-top: 7px;
+  padding: 6px;
+  margin-right: 5px;
+  background: #009879;
+  color: white;
+  font-size: 17px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 150px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.toggleStatButton2:hover {
+  background: #017961;
+}
+
+.addTournamentButton {
+  padding: 6px;
+  margin-left: 5px;
+  background: #009879;
+  color: white;
+  font-size: 17px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 150px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.addTournamentButton:hover {
+  background: #017961;
+}
+
+.content-table {
+  border-collapse: collapse;
+  margin: 0;
+  margin-bottom: 50px;
+  font-size: 0.9em;
+  width: 100%;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.content-table thead tr {
+  background-color: #009879;
+  color: white;
+  text-align: left;
+  font-weight: bold;
+}
+
+.content-table th, .content-table td {
+  padding: 12px 15px;
+  text-align: left;
+}
+
+.content-table tbody tr {
+  border-bottom: 1px solid lightgray;
+}
+
+.content-table tbody tr:hover {
+  color: #009879;
+  cursor: pointer;
+}
+
+.content-table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.content-table tbody:last-of-type {
+  border-bottom: 2px solid #009879;
+}
+
+.footer {
+  height: auto;
+}
+
+form {
+  padding: 2rem;
+  border: 1px solid #009879;
+  border-radius: 5px;
+  margin-left: 20%;
+  margin-right: 20%;
+  margin-top: 5%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+form label {
+  padding-top: .5em;
+  padding-bottom: .5em;
+  display: block;
+  text-align: left;
+  margin-left: 9%;
+}
+
+form input {
+  display: block;
+  align-items: left;
+  margin-left: 9%;
+  width: 80%;
+}
+
+.formButtons{
+  padding: 6px;
+  margin-left: 5px;
+  margin-right: 5px;
+  background: #009879;
+  color: white;
+  font-size: 17px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 150px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.formButtons:hover{
+  background: #017961;
+}
+
+.tournamentDetailsDiv {
+  /* background-color: rgba(214, 255, 253, 0.623); */
+  border: 3px solid #009879;
+  color: #003f32;
+  padding-top: 3%;
+  padding-bottom: 3%;
+  margin: auto;
+  width: 60%;
+  box-shadow: 0 0 20px rgba(5, 37, 30, 0.2);
+  border-radius: 20px;
+}
+
+.tournamentDetailsDiv ul {
+  padding-right: 4%;
 }

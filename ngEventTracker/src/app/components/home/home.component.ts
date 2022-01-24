@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Tournament } from 'src/app/models/tournament';
 import { TournamentStatPipe } from 'src/app/pipes/tournament-stat.pipe';
 import { TournamentService } from 'src/app/services/tournament.service';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
   selector: 'app-home',
@@ -103,6 +104,17 @@ export class HomeComponent implements OnInit {
     return this.statPipe.getTop10Percentage(this.tournaments, this.selectedYear);
   }
 
+  displayTournamentsByKeyword(keyword: string) {
+    this.tService.searchKeyword(keyword).subscribe(
+      tournament => {this.tournaments = tournament
+      },
+        fail => {
+          console.error('Error searching tournaments by keyword');
+          console.error(fail);
+      }
+    );
+
+  }
 
   reload() {
     this.tService.index().subscribe(

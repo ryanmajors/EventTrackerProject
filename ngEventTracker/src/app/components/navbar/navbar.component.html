@@ -1,0 +1,9 @@
+<div class="topnav">
+  <a class="active" href="#home">Home</a>
+  <div class="search-container">
+    <form action="/action_page.php">
+      <input type="text" placeholder="Search.." name="search" [(ngModel)]="keyword">
+      <button (click)="homeComp.displayTournamentsByKeyword(keyword)" (click)="keyword = ''" type="submit" >🔍</button>
+    </form>
+  </div>
+</div>

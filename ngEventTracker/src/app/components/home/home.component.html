@@ -1,15 +1,16 @@
 <div class="container">
-  <div class="titleContainer">
-    <br>
-    <h1>{{ title }}</h1>
-  </div>
-  <br>
-  <br>
-  <br>
+  <app-navbar></app-navbar>
+  <br />
+  <br />
+  <br />
+  <br />
+  <h1>DG Tournament Tracker</h1>
+  <br />
+  <br />
   <!-- Player info -->
   <div class="playerInfo">
-    <h2>Player Info</h2>
-    <h6>Ryan Majors #104126</h6>
+    <h2>Ryan Majors #104126</h2>
+    <br>
     <ul>
       <li class="playerInfoDetails" name="playerLocation">
         Location: Arvada, Colorado, United States
@@ -25,41 +26,52 @@
       </li>
     </ul>
   </div>
-  <br>
-  <br>
-  <br>
+  <br />
+  <br />
+  <br />
 
   <!-- Player Stats and Filters / Stats Table -->
   <div class="playerStatistics">
     <div class="playerStatsContainer">
-    <h3 name="playerStatsTitle">Player Statistics</h3>
-    <button *ngIf="basicStatsOn" name="toggleStatButton1" (click)="basicStatsOn = false">
-      Detailed Stats
-    </button>
-    <button *ngIf="!basicStatsOn" name=toggleStatButton2 (click)="basicStatsOn = true">BasicStats</button>
-    <button (click)="addTournamentFormSelected = true">Add Tournamnet</button>
-    <div name="yearSelector">
-      <br>
-      <span class="yearContainer"
-        (click)="selectedYear = year"
-        (click)="selected = null"
-        (click)="addTournamentFormSelected = false"
-        (click)="updateFormSelected = false"
-        (click)="editTournament=null"
-        *ngFor="let year of years"
-      >
-        {{ year }}
-      </span>
-      <br>
+      <h3 name="playerStatsTitle">Player Statistics</h3>
 
-    </div>
+      <div name="yearSelector">
+        <span
+          class="yearContainer"
+          (click)="selectedYear = year"
+          (click)="selected = null"
+          (click)="addTournamentFormSelected = false"
+          (click)="updateFormSelected = false"
+          (click)="editTournament = null"
+          (click)="reload()"
+          *ngFor="let year of years"
+        >
+          {{ year }}
+        </span>
+        <br>
+        <button
+        *ngIf="basicStatsOn"
+        class="toggleStatButton1"
+        (click)="basicStatsOn = false"
+      >
+        Detailed Stats
+      </button>
+      <button
+        *ngIf="!basicStatsOn"
+        class="toggleStatButton2"
+        (click)="basicStatsOn = true"
+      >
+        BasicStats
+      </button>
+      <button class="addTournamentButton" (click)="addTournamentFormSelected = true">Add Tournament</button>
+      </div>
     </div>
     <br />
     <div id="basicStatData" *ngIf="basicStatsOn">
-      <br>
+      <br />
       <h5 id="basicStatDataTitle">{{ selectedYear }} Season Totals</h5>
-      <div name="basicStatDataTable">
-        <table class="table table-success table-striped">
+      <div class="basicStatDataTable">
+        <table class="content-table">
           <thead>
             <tr>
               <th>Tournaments</th>
@@ -77,10 +89,10 @@
         </table>
       </div>
     </div>
-    <div id="detailedStatData" *ngIf="!basicStatsOn">
+    <div class="detailedStatData" *ngIf="!basicStatsOn">
       <h5 id="detailedStatDataTitle">{{ selectedYear }} Detailed Stats</h5>
-      <div name="detailedStatDataTable">
-        <table class="table table-success table-striped">
+      <div class="detailedStatDataTable">
+        <table class="content-table">
           <thead>
             <tr>
               <th>Points/Tournament</th>
@@ -110,24 +122,27 @@
     </div>
   </div>
 
-
   <!-- Single Tournament Details -->
   <div
-    id="tournamentDetails"
+    class="tournamentDetailsDiv"
     *ngIf="selected && !addTournamentFormSelected && !editTournament"
   >
     <h4>{{ selected.name }}</h4>
     <ul>
+      <br>
       <li class="tournamentDetails">Tier: {{ selected.tier }}</li>
-      <li class="tournamentDetails">Date: {{ selected.month }}/{{ selected.year }}</li>
-      <li class="tournamentDetails">Location: {{ selected.location }}</li>
-      <li class="tournamentDetails">Days: {{ selected.days }} - Entry fee: ${{ selected.entryFee }}</li>
-      <li class="tournamentDetails">Players: {{ selected.players }}</li>
-      <li class="tournamentDetails">Placed: {{ selected.placement }}</li>
-      <li class="tournamentDetails">Points: {{ selected.points }}</li>
+      <li class="tournamentDetails">
+        Date: {{ selected.month }}/{{ selected.year }} - Location: {{ selected.location }}</li>
+      <li class="tournamentDetails">
+        Days: {{ selected.days }} - Entry fee: ${{ selected.entryFee }}
+      </li>
+      <li class="tournamentDetails">Players: {{ selected.players }} - Placed: {{ selected.placement }} - Points: {{ selected.points }}</li>
+      <!-- <li class="tournamentDetails">Placed: {{ selected.placement }}</li>
+      <li class="tournamentDetails">Points: {{ selected.points }}</li> -->
     </ul>
-    <button (click)="setEditTournament()">Update</button>
-    <button (click)="deleteTournament(selected.id)" (click)="selected = null">
+    <br>
+    <button class="formButtons" (click)="setEditTournament()">Update</button>
+    <button class="formButtons" (click)="deleteTournament(selected.id)" (click)="selected = null">
       Delete
     </button>
   </div>
@@ -137,10 +152,10 @@
     name="tournamentResults"
     *ngIf="!selected && !addTournamentFormSelected!; updateFormSelected"
   >
-  <br>
+    <br />
     <h5 name="tournamentResultsTitle">{{ selectedYear }} Tournament Results</h5>
-    <div name="tournamentResultsTable">
-      <table class="table table-success table-striped">
+    <div class="tournamentResultsTable">
+      <table class="content-table">
         <thead>
           <tr>
             <th>Place</th>
@@ -151,12 +166,20 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="table-secondary" *ngFor="let tournament of tournaments | tournamentYear: selectedYear" (click)="selected = tournament">
+          <tr
+            class="table-secondary"
+            *ngFor="
+              let tournament of tournaments | tournamentYear: selectedYear
+            "
+            (click)="selected = tournament"
+          >
             <td class="tournamentTableData">{{ tournament.placement }}</td>
             <td class="tournamentTableData">{{ tournament.points }}</td>
             <td class="tournamentTableData">{{ tournament.name }}</td>
             <td class="tournamentTableData">{{ tournament.tier }}</td>
-            <td class="tournamentTableData">{{ tournament.month }}/{{ tournament.year }}</td>
+            <td class="tournamentTableData">
+              {{ tournament.month }}/{{ tournament.year }}
+            </td>
           </tr>
         </tbody>
       </table>
@@ -165,100 +188,99 @@
   </div>
 
   <!-- Add New Tournament Form -->
-  <div id="addNewTournamentForm" *ngIf="!selected && addTournamentFormSelected">
+  <div class="addNewTournamentForm" *ngIf="!selected && addTournamentFormSelected">
     <h3>New Tournament Form</h3>
     <form>
-      <label for="">Tournament Name:</label>
-      <input type="text" name="name" [(ngModel)]="newTournament.name" />
-      <br />
-      <label for="">Tier:</label>
-      <input type="text" name="tier" [(ngModel)]="newTournament.tier" />
-      <br />
-      <label for="">Location</label>
-      <input type="text" name="location" [(ngModel)]="newTournament.location" />
-      <br />
-      <label for="">Month:</label>
-      <input type="text" name="month" [(ngModel)]="newTournament.month" />
-      <br />
-      <label for="">Year:</label>
-      <input type="text" name="year" [(ngModel)]="newTournament.year" />
-      <br />
-      <label for="">Players:</label>
-      <input type="text" name="players" [(ngModel)]="newTournament.players" />
-      <br />
-      <label for="">EntryFee</label>
-      <input type="text" name="entryfee" [(ngModel)]="newTournament.entryFee" />
-      <br />
-      <label for="">Placement</label>
-      <input
-        type="text"
-        name="placement"
-        [(ngModel)]="newTournament.placement"
-      />
-      <br />
-      <label for="">Points</label>
-      <input type="text" name="points" [(ngModel)]="newTournament.points" />
-      <br />
-      <label for="">Multi-Day</label>
-      <input
-        type="checkbox"
-        name="multiday"
-        [(ngModel)]="newTournament.multiDay"
-      />
-      <label for="">Days:</label>
-      <input type="text" name="days" [(ngModel)]="newTournament.days" />
-      <br />
-      <input
-        type="submit"
-        (click)="addTournament(newTournament)"
+      <div>
+        <label for="newName">Tournament Name:</label>
+        <input type="text" name="newName" [(ngModel)]="newTournament.name" />
+      </div>
+      <div>
+        <label for="newTier">Tier:</label>
+        <input type="text" name="newTier" [(ngModel)]="newTournament.tier" />
+      </div>
+      <div>
+        <label for="newLocation">Location</label>
+        <input type="text" name="newLocation" [(ngModel)]="newTournament.location"/>
+      </div>
+      <div>
+        <label for="newMonth">Month:</label>
+        <input type="text" name="newMonth" [(ngModel)]="newTournament.month" />
+      </div>
+      <div>
+        <label for="newYear">Year:</label>
+        <input type="text" name="newYear" [(ngModel)]="newTournament.year" />
+      </div>
+      <div>
+        <label for="newPlayers">Players:</label>
+        <input type="text" name="newPlayers" [(ngModel)]="newTournament.players"/>
+      </div>
+      <div>
+        <label for="newEntryfee">EntryFee</label>
+        <input type="text" name="newEntryfee" [(ngModel)]="newTournament.entryFee"/>
+      </div>
+      <div>
+        <label for="newPlacement">Placement</label>
+        <input type="text" name="newPlacement" [(ngModel)]="newTournament.placement"/>
+      </div>
+      <div>
+        <label for="">Points</label>
+        <input type="text" name="newPoints" [(ngModel)]="newTournament.points" />
+      </div>
+      <div>
+        <label for="newMultiday">Multi-Day</label>
+        <input type="checkbox" name="newMultiday"[(ngModel)]="newTournament.multiDay"/>
+      </div>
+      <div>
+        <label for="newDays">Days:</label>
+        <input type="text" name="newDays" [(ngModel)]="newTournament.days" />
+      </div>
+      <div>
+      </div>
+      <br>
+      <!-- <input type="submit" (click)="addTournament(newTournament)"
         value="Submit"
         (click)="addTournamentFormSelected = false"
-      />
+      /> -->
+      <button class="formButtons" type="submit" (click)="addTournament(newTournament)"
+      value="Submit"
+      (click)="addTournamentFormSelected = false">Submit</button>
     </form>
   </div>
 
-  <div id="updateTournamentForm" *ngIf="editTournament">
+  <div class="updateTournamentForm" *ngIf="editTournament">
     <h3>Update Tournament Form</h3>
     <form>
       <label for="">Tournament Name:</label>
       <input type="text" name="name" [(ngModel)]="editTournament.name" />
-      <br />
       <label for="">Tier:</label>
       <input type="text" name="tier" [(ngModel)]="editTournament.tier" />
-      <br />
       <label for="">Location</label>
       <input
         type="text"
         name="location"
         [(ngModel)]="editTournament.location"
       />
-      <br />
       <label for="">Month:</label>
       <input type="text" name="month" [(ngModel)]="editTournament.month" />
-      <br />
       <label for="">Year:</label>
       <input type="text" name="year" [(ngModel)]="editTournament.year" />
-      <br />
       <label for="">Players:</label>
       <input type="text" name="players" [(ngModel)]="editTournament.players" />
-      <br />
       <label for="">EntryFee</label>
       <input
         type="text"
         name="entryfee"
         [(ngModel)]="editTournament.entryFee"
       />
-      <br />
       <label for="">Placement</label>
       <input
         type="text"
         name="placement"
         [(ngModel)]="editTournament.placement"
       />
-      <br />
       <label for="">Points</label>
       <input type="text" name="points" [(ngModel)]="editTournament.points" />
-      <br />
       <label for="">Multi-Day</label>
       <input
         type="checkbox"
@@ -267,14 +289,14 @@
       />
       <label for="">Days:</label>
       <input type="text" name="days" [(ngModel)]="editTournament.days" />
-      <br />
-      <input
-        type="submit"
-        (click)="updateTournament(editTournament)"
-        (click)="editTournament = null"
-        value="Submit"
-      />
-      <button (click)="editTournament = null">Cancel</button>
+      <br>
+      <button class="formButtons" id="updateButton"
+      type="submit"
+      (click)="updateTournament(editTournament)"
+      (click)="editTournament = null"
+      value="Submit">Submit</button>
+      <button class="formButtons" id="cancelButton" (click)="editTournament = null">Cancel</button>
     </form>
   </div>
+  <app-footer class="footer"></app-footer>
 </div>

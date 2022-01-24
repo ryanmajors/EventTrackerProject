@@ -46,6 +46,20 @@ export class TournamentService {
     );
   }
 
+  searchKeyword(keyword: string): Observable<Tournament[]> {
+    return this.http.get<Tournament[]>(this.url + "/search/keyword/" + keyword).pipe(
+      catchError( (error: any) => {
+        console.error("TournamentService.show(): error finding tournaments by keyword:");
+        console.error(error);
+        return throwError(
+          () => new Error(
+            "TournamentService.show(): error finding tournaments by keyword: " + error
+          )
+        )
+      })
+    );
+  }
+
   create(tournament: Tournament): Observable<Tournament> {
     tournament.hidden = false;
     return this.http.post<Tournament>(this.url, tournament).pipe(
