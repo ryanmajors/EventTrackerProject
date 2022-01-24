@@ -67,7 +67,7 @@
       </div>
     </div>
     <br />
-    <div id="basicStatData" *ngIf="basicStatsOn">
+    <div id="basicStatData" *ngIf="basicStatsOn && selectedYear!='Wins'">
       <br />
       <h5 id="basicStatDataTitle">{{ selectedYear }} Season Totals</h5>
       <div class="basicStatDataTable">
@@ -140,7 +140,6 @@
       <!-- <li class="tournamentDetails">Placed: {{ selected.placement }}</li>
       <li class="tournamentDetails">Points: {{ selected.points }}</li> -->
     </ul>
-    <br>
     <button class="formButtons" (click)="setEditTournament()">Update</button>
     <button class="formButtons" (click)="deleteTournament(selected.id)" (click)="selected = null">
       Delete
@@ -150,7 +149,7 @@
   <!-- Tournament Results - Want to have tournament results hide when new form or single tournament is selected -->
   <div
     name="tournamentResults"
-    *ngIf="!selected && !addTournamentFormSelected!; updateFormSelected"
+    *ngIf="!selected && !addTournamentFormSelected"
   >
     <br />
     <h5 name="tournamentResultsTitle">{{ selectedYear }} Tournament Results</h5>
