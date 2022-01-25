@@ -123,6 +123,11 @@ h2 {
   background: #017961;
 }
 
+.basicStatDataTable .content-table tbody tr:hover {
+  color: black;
+  cursor: initial;
+}
+
 .content-table {
   border-collapse: collapse;
   margin: 0;

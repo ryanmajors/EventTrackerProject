@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, Observable, throwError } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Tournament } from '../models/tournament';
 
 @Injectable({
@@ -9,8 +10,9 @@ import { Tournament } from '../models/tournament';
 })
 export class TournamentService {
 
-  private baseUrl = 'http://localhost:8083/';
-  private url = this.baseUrl + 'api/tournaments';
+  // private baseUrl = 'http://localhost:8083/';
+  // private url = baseUrl + 'api/tournaments';
+  private url = environment.baseUrl + 'api/tournaments';
 
   constructor(
     private http: HttpClient

@@ -45,6 +45,7 @@
 .topnav a.active:hover {
   background-color: #017961;
   color: white;
+  cursor: pointer;
 }
 
 /* Style the input container */
